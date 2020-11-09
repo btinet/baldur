@@ -13,6 +13,7 @@ abstract class AbstractController
     protected $session;
     protected $passwordEncoder;
 
+
     function __construct()
     {
         $this->view = new View();

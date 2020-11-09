@@ -12,5 +12,14 @@
 
 <p><?= $user ?></p>
 <p><?= $password ?></p>
+<p><?= $password_verified ?></p>
+
+<?php
+    foreach ($categories as $category){
+     echo $category['title'].'<br>';
+    }
+?>
+
+
 </body>
 </html>

@@ -1,8 +1,8 @@
 <?php
 
-use App\Bootstrap;
+use Core\Bootstrap;
 
-require (dirname(__DIR__).'/vendor/autoload.php');
+require_once (dirname(__DIR__).'/vendor/autoload.php');
 
 ob_start();
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Core;
 
 use Core\Logger;
 use Exception;
@@ -11,9 +11,14 @@ class Bootstrap {
     /**
      * @var
      */
-    private $dotenv;
     private $url;
+    /**
+     * @var null
+     */
     private $controller = null;
+    /**
+     * @var
+     */
     private $defaultController;
 
     /**
@@ -22,7 +27,7 @@ class Bootstrap {
     function __construct()
     {
         $dotenv = new Dotenv();
-        $dotenv->loadEnv(dirname(__DIR__).'/.env');
+        $dotenv->loadEnv(dirname(__DIR__) . '/.env');
 
         if (isset($_ENV['APP_ENV'])) {
             switch ($_ENV['APP_ENV']) {
@@ -40,6 +45,9 @@ class Bootstrap {
         $this->parseUrl();
     }
 
+    /**
+     * @param $name
+     */
     public function setController($name) {
         $this->defaultController = $name;
     }
@@ -79,7 +87,6 @@ class Bootstrap {
                 throw new Exception('Controller-Klasse gibts nicht, daher m&ouml;chte ich nun eine Fehlerseite ausgeben.');
             }
         } catch(Exception $e) {
-            // TODO: Add Error Page
             Logger::newMessage($e);
             Logger::customErrorMsg();
         }
@@ -122,7 +129,8 @@ class Bootstrap {
     /**
      * Display an error page if nothing exists
      *
-     * @return boolean
+     * @param $error
+     * @return void
      */
     private function error($error) {
         Logger::exception_handler($error);
