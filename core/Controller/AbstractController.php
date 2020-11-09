@@ -3,6 +3,7 @@
 
 namespace Core\Controller;
 
+use Core\Flash;
 use Core\Password;
 use Core\Session;
 use Twig\Loader\FilesystemLoader;
@@ -10,10 +11,11 @@ use Twig\Environment;
 
 abstract class AbstractController
 {
-    protected $view;
-    protected $session;
-    protected $passwordEncoder;
 
+    protected $flash;
+    protected $passwordEncoder;
+    protected $session;
+    protected $view;
 
     function __construct()
     {
@@ -32,16 +34,17 @@ abstract class AbstractController
 
         $this->session = new Session();
         $this->session->init();
-
+        $this->flash = new Flash($this->view);
         $this->passwordEncoder = new Password();
+
     }
 
-    public static function redirect($status, $url = null) {
+    public function redirect($status, $url = null) {
         header('Location: ' . host . $url, true, $status);
         exit;
     }
 
-    public static function halt($status = 404, $message = 'Something went wrong.') {
+    public function halt($status = 404, $message = 'Something went wrong.') {
         if (ob_get_level() !== 0) {
             ob_clean();
         }
@@ -49,6 +52,8 @@ abstract class AbstractController
         http_response_code($status);
         $data['status'] = $status;
         $data['message'] = $message;
+
+        // TODO: Change internal View to Twig Engine
 
         if (!file_exists("/templates/error/$status.php")) {
             $status = 'default';
@@ -59,4 +64,5 @@ abstract class AbstractController
     }
 
     abstract function index();
+
 }

@@ -72,6 +72,11 @@ class __TwigTemplate_94037fee35c59baba9645f02bac75d7fb1dc59df85bca8c49c1f7ba5548
         // line 12
         echo "    </ul>
 
+";
+        // line 14
+        echo twig_get_attribute($this->env, $this->source, ($context["flash"] ?? null), "show", [], "any", false, false, false, 14);
+        echo "
+
 
 ";
     }
@@ -88,7 +93,7 @@ class __TwigTemplate_94037fee35c59baba9645f02bac75d7fb1dc59df85bca8c49c1f7ba5548
 
     public function getDebugInfo()
     {
-        return array (  73 => 12,  64 => 10,  60 => 9,  53 => 5,  50 => 4,  46 => 3,  35 => 1,);
+        return array (  77 => 14,  73 => 12,  64 => 10,  60 => 9,  53 => 5,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -105,6 +110,8 @@ class __TwigTemplate_94037fee35c59baba9645f02bac75d7fb1dc59df85bca8c49c1f7ba5548
             <li>{{ category.title }}</li>
         {% endfor %}
     </ul>
+
+{{ flash.show|raw }}
 
 
 {% endblock %}", "base/index.html.twig", "C:\\xampp\\htdocs\\templates\\base\\index.html.twig");

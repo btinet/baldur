@@ -20,15 +20,16 @@ class BaseController extends AbstractController
 
         $this->session->set('user', 'bvoigt');
 
+        $message = $this->flash->add('Cool, ja, es hat geklappt!', 'success');
+
         $password = $this->passwordEncoder->hash("bigben123");
         $password_verified = $this->passwordEncoder->validate("bigben123", $password);
-
-        // Template Laden
 
         try {
             echo $this->view->render('base/index.html.twig', [
                     'controller_name' => 'BaseController',
-                    'categories' => $categories
+                    'categories' => $categories,
+                    'flash' => $this->flash
                 ]
             );
         } catch (LoaderError $e) {
