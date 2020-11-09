@@ -5,7 +5,8 @@ namespace Core\Controller;
 
 use Core\Password;
 use Core\Session;
-use Core\View\View;
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 
 abstract class AbstractController
 {
@@ -16,9 +17,22 @@ abstract class AbstractController
 
     function __construct()
     {
-        $this->view = new View();
+
+        $debug = ($_ENV['APP_ENV'] !== 'production') ?: true;
+
+        $loader = new FilesystemLoader(project_root.'/templates');
+        $this->view = new Environment($loader, [
+            'cache' => project_root.'/var/cache',
+            'debug' => $debug
+        ]);
+
+        if ($debug){
+            $this->view->addExtension(new \Twig\Extension\DebugExtension());
+        }
+
         $this->session = new Session();
         $this->session->init();
+
         $this->passwordEncoder = new Password();
     }
 

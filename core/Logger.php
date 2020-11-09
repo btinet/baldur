@@ -8,9 +8,10 @@ class Logger {
 
     private static $print_error = false;
 
-    public static function customErrorMsg($e = '') {
+    public static function customErrorMsg(Exception $exception) {
         echo "<p>Es ist ein Fehler aufgetreten.</p>";
-        echo "<p>$e</p>";
+        echo "<p>{$exception->getMessage()}</p>";
+        echo "<p>Affected Line: {$exception->getLine()} in {$exception->getFile()}</p>";
         exit;
     }
 

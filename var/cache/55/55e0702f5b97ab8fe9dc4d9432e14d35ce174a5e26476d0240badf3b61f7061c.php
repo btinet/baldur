@@ -13,7 +13,7 @@ use Twig\Source;
 use Twig\Template;
 
 /* base.html.twig */
-class __TwigTemplate_93bc03d15e1a4f6f0d2be79bd9654a65eef1fcfae5e4a07a96e84b1a04bca3bc extends Template
+class __TwigTemplate_3740514b332afc62400391bab6eec06ea59d260750518820b80edd21a1569798 extends Template
 {
     private $source;
     private $macros = [];
@@ -27,6 +27,7 @@ class __TwigTemplate_93bc03d15e1a4f6f0d2be79bd9654a65eef1fcfae5e4a07a96e84b1a04b
         $this->parent = false;
 
         $this->blocks = [
+            'body' => [$this, 'block_body'],
         ];
     }
 
@@ -41,10 +42,49 @@ class __TwigTemplate_93bc03d15e1a4f6f0d2be79bd9654a65eef1fcfae5e4a07a96e84b1a04b
     <title>Title</title>
 </head>
 <body>
-<h1>Tolle Sache</h1>
-<h3><?= \$controller_name ?></h3>
+";
+        // line 8
+        $this->displayBlock('body', $context, $blocks);
+        // line 12
+        echo "
+<p><?= \$user ?></p>
+<p><?= \$password ?></p>
+<p><?= \$password_verified ?></p>
+
+<?php
+    foreach (\$categories as \$category){
+     echo \$category['title'].'<br>';
+    }
+?>
+
+<table>
+    <tr>
+        <?php
+        for (\$i = 1; \$i <= 7; \$i++){
+            echo '<td>'.\$i.'</td>';
+        }
+        ?>
+    </tr>
+
+</table>
+
+
+
 </body>
 </html>";
+    }
+
+    // line 8
+    public function block_body($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        // line 9
+        echo "<h1>Tolle Sache</h1>
+<h3>";
+        // line 10
+        echo twig_escape_filter($this->env, ($context["controller_name"] ?? null), "html", null, true);
+        echo "</h3>
+";
     }
 
     public function getTemplateName()
@@ -54,7 +94,7 @@ class __TwigTemplate_93bc03d15e1a4f6f0d2be79bd9654a65eef1fcfae5e4a07a96e84b1a04b
 
     public function getDebugInfo()
     {
-        return array (  37 => 1,);
+        return array (  85 => 10,  82 => 9,  78 => 8,  49 => 12,  47 => 8,  38 => 1,);
     }
 
     public function getSourceContext()

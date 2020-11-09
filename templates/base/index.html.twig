@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   <h1>
+       {{ controller_name }}
+   </h1>
+
+    <ul>
+        {% for category in categories %}
+            <li>{{ category.title }}</li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}

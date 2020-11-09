@@ -70,7 +70,6 @@ class Bootstrap {
     }
 
     private function loadDefaultController() {
-        // TODO: Set Controller Class Name
         $this->controller = new $this->defaultController();
         $this->controller->index();
     }
@@ -88,7 +87,7 @@ class Bootstrap {
             }
         } catch(Exception $e) {
             Logger::newMessage($e);
-            Logger::customErrorMsg();
+            Logger::customErrorMsg($e);
         }
 
 
@@ -118,7 +117,7 @@ class Bootstrap {
         } catch(Exception $e) {
             // TODO: Add Error Page
             Logger::newMessage($e);
-            Logger::customErrorMsg();
+            Logger::customErrorMsg($e);
         }
 
 

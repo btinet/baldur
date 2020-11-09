@@ -4,6 +4,10 @@ namespace App\Controller;
 
 use App\Repository\CategoryRepository;
 use Core\Controller\AbstractController;
+use Core\Logger;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class BaseController extends AbstractController
 {
@@ -12,21 +16,30 @@ class BaseController extends AbstractController
     {
 
         $categoryRepository = new CategoryRepository();
-        $category = $categoryRepository->findAll();
+        $categories = $categoryRepository->findAll();
 
         $this->session->set('user', 'bvoigt');
 
         $password = $this->passwordEncoder->hash("bigben123");
         $password_verified = $this->passwordEncoder->validate("bigben123", $password);
 
-        $this->view->render('base.html.php', [
-            'controller_name' => 'BaseController',
-            'Title' => 'Vapita Index',
-            'user' => $this->session->get('user'),
-            'password' => $password,
-            'password_verified' => $password_verified,
-            'categories' => $category
-        ]);
+        // Template Laden
 
+        try {
+            echo $this->view->render('base/index.html.twig', [
+                    'controller_name' => 'BaseController',
+                    'categories' => $categories
+                ]
+            );
+        } catch (LoaderError $e) {
+            Logger::newMessage($e);
+            Logger::customErrorMsg($e);
+        } catch (RuntimeError $e) {
+            Logger::newMessage($e);
+            Logger::customErrorMsg($e);
+        } catch (SyntaxError $e) {
+            Logger::newMessage($e);
+            Logger::customErrorMsg($e);
+        }
     }
 }
