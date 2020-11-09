@@ -9,7 +9,6 @@ class View
         foreach($options as $key => $value){
             ${$key} = $value;
         }
-
         include (project_root ."/templates/" . $template);
     }
 }

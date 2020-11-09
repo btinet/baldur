@@ -3,19 +3,22 @@
 
 namespace Core\Controller;
 
-use Core\Model\Model;
+use Core\Password;
+use Core\Session;
 use Core\View\View;
 
 abstract class AbstractController
 {
-
-    protected $db;
     protected $view;
+    protected $session;
+    protected $passwordEncoder;
 
     function __construct()
     {
-        $this->db = new Model();
         $this->view = new View();
+        $this->session = new Session();
+        $this->session->init();
+        $this->passwordEncoder = new Password();
     }
 
     public static function redirect($status, $url = null) {

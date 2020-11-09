@@ -5,7 +5,12 @@
     <title>Title</title>
 </head>
 <body>
+{% block body %}
 <h1>Tolle Sache</h1>
-<h3><?= $controller_name ?></h3>
+<h3>{{ controller_name }}</h3>
+{% endblock %}
+
+<p><?= $user ?></p>
+<p><?= $password ?></p>
 </body>
 </html>

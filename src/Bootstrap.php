@@ -69,19 +69,21 @@ class Bootstrap {
 
     private function loadExistingController() {
 
+
         $this->controller = 'App\\Controller\\'.ucfirst($this->url[0]).'Controller';
 
         try {
             if (class_exists($this->controller)){
                 $this->controller = new $this->controller();
             } else {
-                throw new Exception($this->controller);
+                throw new Exception('Controller-Klasse gibts nicht, daher m&ouml;chte ich nun eine Fehlerseite ausgeben.');
             }
         } catch(Exception $e) {
-            // TODO: Add Logger Class
+            // TODO: Add Error Page
             Logger::newMessage($e);
             Logger::customErrorMsg();
         }
+
 
     }
 
@@ -98,19 +100,20 @@ class Bootstrap {
     private function callControllerMethod()
     {
         unset($this->url[0]);
-        $method =  'index';
-        $callable_method = (!empty($this->url[1])) ? $this->url[1] : false;
+        $method = (empty($this->url[1])) ? 'index' : $this->url[1];
+
         try {
-            if (is_callable(array($this->controller, $callable_method))) {
-                $method = array_shift($this->url);
+            if (is_callable(array($this->controller, $method))) {
+                $method = (is_array($method)) ? array_shift($this->url) : $method;
             } else {
-                throw new Exception($callable_method);
+                throw new Exception('Methode gibts nicht, daher m&ouml;chte ich nun eine Fehlerseite ausgeben.');
             }
         } catch(Exception $e) {
-            // TODO: Add Logger Class
+            // TODO: Add Error Page
             Logger::newMessage($e);
             Logger::customErrorMsg();
         }
+
 
         $parameter = filter_var_array($this->url, FILTER_SANITIZE_STRING);
         call_user_func_array(array($this->controller, $method), $parameter);

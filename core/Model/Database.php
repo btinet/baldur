@@ -18,7 +18,6 @@ class Database extends PDO {
             $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch(PDOException $e) {
-            // TODO: Add Logger Class
             Logger::newMessage($e);
             Logger::customErrorMsg();
         }
@@ -29,8 +28,7 @@ class Database extends PDO {
         foreach($data as $key => $value) {
             $statement->bindValue("$key", $value);
         }
-
-        $statement->execute();
+        $this->execute($statement);
         return $statement->fetchAll();
     }
 
@@ -51,7 +49,7 @@ class Database extends PDO {
             $stmt->bindValue(":$key", $value);
         }
 
-        $stmt->execute();
+        $this->execute($stmt);
         return $this->lastInsertId();
     }
 
@@ -92,7 +90,7 @@ class Database extends PDO {
             $stmt->bindValue(":where_$key", $value);
         }
 
-        $stmt->execute();
+        $this->execute($stmt);
         return $stmt->rowCount();
     }
 
@@ -129,12 +127,22 @@ class Database extends PDO {
             $stmt->bindValue(":$key", $value);
         }
 
-        $stmt->execute();
+        $this->execute($stmt);
         return $stmt->rowCount();
     }
 
     public function truncate($table) {
         return $this->exec("TRUNCATE TABLE $table");
+    }
+
+    private function execute($statement){
+        try {
+            return $statement->execute();
+        } catch(PDOException $e) {
+            Logger::newMessage($e);
+            Logger::customErrorMsg();
+        }
+        return false;
     }
 
 }
