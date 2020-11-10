@@ -4,10 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CategoryRepository;
 use Core\Controller\AbstractController;
-use Core\Logger;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
+use Exception;
 
 class BaseController extends AbstractController
 {
@@ -32,15 +29,8 @@ class BaseController extends AbstractController
                     'flash' => $this->flash
                 ]
             );
-        } catch (LoaderError $e) {
-            Logger::newMessage($e);
-            Logger::customErrorMsg($e);
-        } catch (RuntimeError $e) {
-            Logger::newMessage($e);
-            Logger::customErrorMsg($e);
-        } catch (SyntaxError $e) {
-            Logger::newMessage($e);
-            Logger::customErrorMsg($e);
+        } catch (Exception $e) {
+           $this->catchException($e);
         }
     }
 }

@@ -4,6 +4,7 @@
 namespace Core\Controller;
 
 use Core\Flash;
+use Core\Logger;
 use Core\Password;
 use Core\Session;
 use Twig\Loader\FilesystemLoader;
@@ -13,13 +14,13 @@ abstract class AbstractController
 {
 
     protected $flash;
+    protected $logger;
     protected $passwordEncoder;
     protected $session;
     protected $view;
 
     function __construct()
     {
-
         $debug = ($_ENV['APP_ENV'] !== 'production') ?: true;
 
         $loader = new FilesystemLoader(project_root.'/templates');
@@ -37,6 +38,11 @@ abstract class AbstractController
         $this->flash = new Flash($this->view);
         $this->passwordEncoder = new Password();
 
+    }
+
+    public function catchException($e){
+        Logger::newMessage($e);
+        Logger::customErrorMsg($e);
     }
 
     public function redirect($status, $url = null) {
