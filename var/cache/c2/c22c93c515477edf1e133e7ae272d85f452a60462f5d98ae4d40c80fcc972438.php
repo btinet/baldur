@@ -50,7 +50,7 @@ class __TwigTemplate_9a5a54b8c9454111466e946a158fdfb0b4fc7bb0d6a4e121859a4213aa4
         echo "   <h1>
        <a href=\"";
         // line 5
-        echo twig_escape_filter($this->env, $this->extensions['Core\Twig\Extension\PathExtension']->generateLink("base/index"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->extensions['Core\Twig\Extension\FunctionExtension']->generateLink("base/index"), "html", null, true);
         echo "\">";
         echo twig_escape_filter($this->env, ($context["controller_name"] ?? null), "html", null, true);
         echo "</a>

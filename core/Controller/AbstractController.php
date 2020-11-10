@@ -8,7 +8,7 @@ use Core\Logger;
 use Core\Password;
 use Core\Request;
 use Core\Session;
-use Core\Twig\Extension\PathExtension;
+use Core\Twig\Extension\FunctionExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 
@@ -35,7 +35,7 @@ abstract class AbstractController
         if ($debug){
             $this->view->addExtension(new \Twig\Extension\DebugExtension());
         }
-        $this->view->addExtension(new PathExtension());
+        $this->view->addExtension(new FunctionExtension());
 
         $this->session = new Session();
         $this->session->init();

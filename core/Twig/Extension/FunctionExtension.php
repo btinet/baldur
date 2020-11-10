@@ -4,7 +4,7 @@
 namespace Core\Twig\Extension;
 
 
-class PathExtension extends \Twig\Extension\AbstractExtension
+class FunctionExtension extends \Twig\Extension\AbstractExtension
 {
 
     public function generateLink($uri){
