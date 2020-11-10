@@ -6,7 +6,9 @@ namespace Core\Controller;
 use Core\Flash;
 use Core\Logger;
 use Core\Password;
+use Core\Request;
 use Core\Session;
+use Core\Twig\Extension\PathExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 
@@ -16,6 +18,7 @@ abstract class AbstractController
     protected $flash;
     protected $logger;
     protected $passwordEncoder;
+    protected $request;
     protected $session;
     protected $view;
 
@@ -32,11 +35,13 @@ abstract class AbstractController
         if ($debug){
             $this->view->addExtension(new \Twig\Extension\DebugExtension());
         }
+        $this->view->addExtension(new PathExtension());
 
         $this->session = new Session();
         $this->session->init();
         $this->flash = new Flash($this->view);
         $this->passwordEncoder = new Password();
+        $this->request = new Request();
 
     }
 
@@ -69,6 +74,6 @@ abstract class AbstractController
         exit;
     }
 
-    abstract function index();
+    //abstract function index(Request $request, $get = false);
 
 }

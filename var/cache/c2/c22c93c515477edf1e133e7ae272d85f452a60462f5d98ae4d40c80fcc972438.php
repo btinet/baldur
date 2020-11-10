@@ -13,7 +13,7 @@ use Twig\Source;
 use Twig\Template;
 
 /* base/index.html.twig */
-class __TwigTemplate_94037fee35c59baba9645f02bac75d7fb1dc59df85bca8c49c1f7ba5548f4ca2 extends Template
+class __TwigTemplate_9a5a54b8c9454111466e946a158fdfb0b4fc7bb0d6a4e121859a4213aa4049d1 extends Template
 {
     private $source;
     private $macros = [];
@@ -48,10 +48,12 @@ class __TwigTemplate_94037fee35c59baba9645f02bac75d7fb1dc59df85bca8c49c1f7ba5548
         $macros = $this->macros;
         // line 4
         echo "   <h1>
-       ";
+       <a href=\"";
         // line 5
+        echo twig_escape_filter($this->env, $this->extensions['Core\Twig\Extension\PathExtension']->generateLink("base/index"), "html", null, true);
+        echo "\">";
         echo twig_escape_filter($this->env, ($context["controller_name"] ?? null), "html", null, true);
-        echo "
+        echo "</a>
    </h1>
 
     <ul>
@@ -101,7 +103,7 @@ class __TwigTemplate_94037fee35c59baba9645f02bac75d7fb1dc59df85bca8c49c1f7ba5548
 
     public function getDebugInfo()
     {
-        return array (  85 => 22,  73 => 12,  64 => 10,  60 => 9,  53 => 5,  50 => 4,  46 => 3,  35 => 1,);
+        return array (  87 => 22,  75 => 12,  66 => 10,  62 => 9,  53 => 5,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -110,7 +112,7 @@ class __TwigTemplate_94037fee35c59baba9645f02bac75d7fb1dc59df85bca8c49c1f7ba5548
 
 {% block body %}
    <h1>
-       {{ controller_name }}
+       <a href=\"{{ link('base/index') }}\">{{ controller_name }}</a>
    </h1>
 
     <ul>

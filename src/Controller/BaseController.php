@@ -9,15 +9,21 @@ use Exception;
 class BaseController extends AbstractController
 {
 
+
     function index()
     {
 
         $categoryRepository = new CategoryRepository();
         $categories = $categoryRepository->findAll();
 
+        if ($this->request->isPostRequest()){
+            $user = $this->request->getQuery('user');
+            $message = $this->flash->add('Cool, ja, es hat geklappt, mein(e) liebe(r) '. $user, 'success');
+        }
+
         $this->session->set('user', 'bvoigt');
 
-        $message = $this->flash->add('Cool, ja, es hat geklappt!', 'success');
+
 
         $password = $this->passwordEncoder->hash("bigben123");
         $password_verified = $this->passwordEncoder->validate("bigben123", $password);
