@@ -13,7 +13,7 @@
 
     <form method="post">
         <label>
-            User
+            User (mit CSRF)
             <input type="text" name="user">
         </label>
         <input type="hidden" name="csrf_token" value="{{ session.get('csrf_token') }}">
