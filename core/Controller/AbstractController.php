@@ -59,6 +59,7 @@ abstract class AbstractController
         $this->request = new Request();
         $this->request->csrf_token = $this->session->get('csrf_token');
         $this->generateToken();
+
     }
 
     public function generateToken(){
