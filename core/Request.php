@@ -4,10 +4,30 @@
 namespace Core;
 
 
+use MongoDB\Driver\Query;
+
 class Request
 {
-    public $isPostRequest;
-    public $query;
+
+    /**
+     * @var bool
+     */
+    public bool $isPostRequest;
+
+    /**
+     * @var bool
+     */
+    public bool $isFormSubmitted;
+
+    /**
+     * @var string
+     */
+    public string $csrf_token;
+
+    /**
+     * @var string
+     */
+    public string $query;
 
     public function __construct(){
 
@@ -22,14 +42,19 @@ class Request
         return $this->isPostRequest;
     }
 
+    public function  isFormSubmitted(){
+        $token = filter_input(INPUT_POST, 'csrf_token', FILTER_SANITIZE_SPECIAL_CHARS);
+        return $this->isFormSubmitted = ($token === $this->csrf_token);
+    }
+
     /**
      * @param $FormFieldName
      * @return mixed
      */
     public function getQuery($FormFieldName)
     {
-        $this->query = filter_input(INPUT_POST, $FormFieldName, FILTER_SANITIZE_SPECIAL_CHARS);
-        return $this->query;
+        $query = filter_input(INPUT_POST, $FormFieldName, FILTER_SANITIZE_SPECIAL_CHARS);
+        return $this->query = $query;
     }
 
 }

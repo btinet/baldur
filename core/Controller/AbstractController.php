@@ -9,18 +9,42 @@ use Core\Password;
 use Core\Request;
 use Core\Session;
 use Core\Twig\Extension\FunctionExtension;
+use Exception;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 
 abstract class AbstractController
 {
 
-    protected $flash;
-    protected $logger;
-    protected $passwordEncoder;
-    protected $request;
-    protected $session;
-    protected $view;
+    /**
+     * @var Flash
+     */
+    protected Flash $flash;
+
+    /**
+     * @var Logger
+     */
+    protected Logger $logger;
+
+    /**
+     * @var Password
+     */
+    protected Password $passwordEncoder;
+
+    /**
+     * @var Request
+     */
+    protected Request $request;
+
+    /**
+     * @var Session
+     */
+    protected Session $session;
+
+    /**
+     * @var Environment
+     */
+    protected Environment $view;
 
     function __construct()
     {
@@ -39,10 +63,27 @@ abstract class AbstractController
 
         $this->session = new Session();
         $this->session->init();
+
         $this->flash = new Flash($this->view);
         $this->passwordEncoder = new Password();
         $this->request = new Request();
+        $this->request->csrf_token = $this->session->get('csrf_token');
+        $this->generateToken();
+    }
 
+    public function generateToken(){
+
+        $csrfToken = null;
+
+        try {
+            $csrfToken = sha1(random_bytes(9));
+        } catch (Exception $e) {
+            $this->catchException($e);
+        }
+
+        $this->session->set('csrf_token',$csrfToken);
+
+        return $csrfToken;
     }
 
     public function catchException($e){

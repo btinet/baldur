@@ -16,6 +16,7 @@
             User
             <input type="text" name="user">
         </label>
+        <input type="hidden" name="csrf_token" value="{{ session.get('csrf_token') }}">
         <button type="submit" name="submit">Absenden</button>
     </form>
 

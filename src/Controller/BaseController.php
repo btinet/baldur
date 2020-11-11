@@ -6,33 +6,39 @@ use App\Repository\CategoryRepository;
 use Core\Controller\AbstractController;
 use Exception;
 
+/**
+ * @meta route="/base"
+ */
 class BaseController extends AbstractController
 {
 
-
+    /**
+     * @meta  route="/index"
+     */
     function index()
     {
 
         $categoryRepository = new CategoryRepository();
         $categories = $categoryRepository->findAll();
 
-        if ($this->request->isPostRequest()){
+        if ($this->request->isPostRequest() && $this->request->isFormSubmitted()){
             $user = $this->request->getQuery('user');
-            $message = $this->flash->add('Cool, ja, es hat geklappt, mein(e) liebe(r) '. $user, 'success');
+            $this->flash->add('Cool, ja, es hat geklappt, mein(e) liebe(r) '. $user, 'success');
         }
 
         $this->session->set('user', 'bvoigt');
 
-
-
         $password = $this->passwordEncoder->hash("bigben123");
         $password_verified = $this->passwordEncoder->validate("bigben123", $password);
+
+
 
         try {
             echo $this->view->render('base/index.html.twig', [
                     'controller_name' => 'BaseController',
                     'categories' => $categories,
-                    'flash' => $this->flash
+                    'flash' => $this->flash,
+                    'session' => $this->session
                 ]
             );
         } catch (Exception $e) {
