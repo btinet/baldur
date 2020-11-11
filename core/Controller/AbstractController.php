@@ -9,6 +9,7 @@ use Core\Password;
 use Core\Request;
 use Core\Session;
 use Core\Twig\Extension\FunctionExtension;
+use Core\View\View;
 use Exception;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
@@ -42,24 +43,13 @@ abstract class AbstractController
     protected Session $session;
 
     /**
-     * @var Environment
+     * @var View
      */
-    protected Environment $view;
+    protected View $view;
 
     function __construct()
     {
-        $debug = ($_ENV['APP_ENV'] !== 'production') ?: true;
-
-        $loader = new FilesystemLoader(project_root.'/templates');
-        $this->view = new Environment($loader, [
-            'cache' => project_root.'/var/cache',
-            'debug' => $debug
-        ]);
-
-        if ($debug){
-            $this->view->addExtension(new \Twig\Extension\DebugExtension());
-        }
-        $this->view->addExtension(new FunctionExtension());
+        $this->view = new View();
 
         $this->session = new Session();
         $this->session->init();

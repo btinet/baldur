@@ -32,17 +32,13 @@ class BaseController extends AbstractController
         $password_verified = $this->passwordEncoder->validate("bigben123", $password);
 
 
+        $this->view->render('base/index.html.twig', [
+                'controller_name' => 'BaseController',
+                'categories' => $categories,
+                'flash' => $this->flash,
+                'session' => $this->session
+            ]
+        );
 
-        try {
-            echo $this->view->render('base/index.html.twig', [
-                    'controller_name' => 'BaseController',
-                    'categories' => $categories,
-                    'flash' => $this->flash,
-                    'session' => $this->session
-                ]
-            );
-        } catch (Exception $e) {
-           $this->catchException($e);
-        }
     }
 }
