@@ -1,11 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Title</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ link('build/app.css') }}">
+        {% endblock %}
     </head>
     <body>
+
     {% block body %}{% endblock %}
+
+    {% block javascripts %}
+        <script src="{{ link('build/runtime.js') }}"></script>
+        <script src="{{ link('build/app.js') }}"></script>
+    {% endblock %}
     </body>
 </html>
