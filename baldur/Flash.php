@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Core;
+namespace Btinet\Baldur;
 
-use Core\View\View;
+use Btinet\Baldur\View\View;
 
 class Flash
 {

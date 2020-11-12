@@ -1,8 +1,8 @@
 <?php
 
-namespace Core;
+namespace Btinet\Baldur;
 
-use Core\Logger;
+
 use Exception;
 use Symfony\Component\Dotenv\Dotenv;
 

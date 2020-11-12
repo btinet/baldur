@@ -1,9 +1,9 @@
 <?php
 
-namespace Core\View;
+namespace Btinet\Baldur\View;
 
-use Core\Logger;
-use Core\Twig\Extension\FunctionExtension;
+use Btinet\Baldur\Logger;
+use Btinet\Baldur\Twig\Extension\FunctionExtension;
 use Exception;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;

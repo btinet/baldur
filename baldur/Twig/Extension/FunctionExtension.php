@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Core\Twig\Extension;
+namespace Btinet\Baldur\Twig\Extension;
 
 
 class FunctionExtension extends \Twig\Extension\AbstractExtension

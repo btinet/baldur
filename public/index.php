@@ -1,6 +1,6 @@
 <?php
 
-use Core\Bootstrap;
+use Btinet\Baldur\Bootstrap;
 
 require_once (dirname(__DIR__).'/vendor/autoload.php');
 

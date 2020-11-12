@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Core\Controller;
+namespace Btinet\Baldur\Controller;
 
-use Core\Flash;
-use Core\Logger;
-use Core\Password;
-use Core\Request;
-use Core\Session;
-use Core\View\View;
+use Btinet\Baldur\Flash;
+use Btinet\Baldur\Logger;
+use Btinet\Baldur\Password;
+use Btinet\Baldur\Request;
+use Btinet\Baldur\Session;
+use Btinet\Baldur\View\View;
 use Exception;
 
 

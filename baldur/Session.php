@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Core;
+namespace Btinet\Baldur;
 
 class Session {
 

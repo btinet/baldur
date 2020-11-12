@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Model;
+namespace Btinet\Baldur\Model;
 
-use Core\Logger;
+use Btinet\Baldur\Logger;
 use \PDO;
 use PDOException;
 

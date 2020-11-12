@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Model;
+namespace Btinet\Baldur\Model;
 
 class Model {
 
