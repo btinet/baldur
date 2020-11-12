@@ -33,6 +33,8 @@ class Logger {
 
     public static function newMessage(Exception $exception, $print_error = false, $clear = false, $error_file = 'errorlog.html') {
 
+        $file_path = project_root.'/var/'.$error_file;
+
         $message = $exception->getMessage();
         $code = $exception->getCode();
         $file = $exception->getFile();
@@ -50,17 +52,17 @@ class Logger {
          <pre>{$trace}</pre>\n
          <hr />\n";
 
-        if (is_file($error_file) === false) {
-            file_put_contents($error_file, '');
+        if (is_file($file_path) === false) {
+            file_put_contents($file_path, '');
         }
 
         if ($clear) {
             $content = '';
         } else {
-            $content = file_get_contents($error_file);
+            $content = file_get_contents($file_path);
         }
 
-        file_put_contents($error_file, $log_message . $content);
+        file_put_contents($file_path, $log_message . $content);
 
         if ($print_error == true) {
             echo $log_message;
@@ -73,7 +75,7 @@ class Logger {
         $date = date('M d, Y G:iA');
         $log_message = "<p>Error on $date - $error</p>\n\n";
 
-        $file_path = project_root.'/var/log/'.$error_file;
+        $file_path = project_root.'/var/'.$error_file;
 
         file_put_contents($file_path, $log_message, FILE_APPEND);
 
