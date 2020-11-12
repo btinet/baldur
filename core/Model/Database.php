@@ -19,7 +19,7 @@ class Database extends PDO {
             $this->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch(PDOException $e) {
             Logger::newMessage($e);
-            Logger::customErrorMsg();
+            Logger::customErrorMsg($e);
         }
     }
 
@@ -140,7 +140,7 @@ class Database extends PDO {
             return $statement->execute();
         } catch(PDOException $e) {
             Logger::newMessage($e);
-            Logger::customErrorMsg();
+            Logger::customErrorMsg($e);
         }
         return false;
     }
