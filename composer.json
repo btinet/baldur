@@ -1,8 +1,17 @@
 {
     "name": "btinet/baldur",
+    "authors": [
+        {
+            "name": "Benjamin Voigt",
+            "email": "dev@vapita.de",
+            "homepage": "https://www.vapita.de",
+            "role": "Developer"
+        }
+    ],
     "description": "A simple php framework inspired by SimpleMVC and Symfony",
     "minimum-stability": "dev",
     "type": "project",
+    "version": "1.0",
     "require": {
         "symfony/dotenv": "^5.1",
         "twig/twig": "^3.0",
