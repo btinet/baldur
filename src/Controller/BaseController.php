@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\CategoryRepository;
-use Btinet\Baldur\Controller\AbstractController;
+use Btinet\Ringhorn\Controller\AbstractController;
 use Exception;
 
 /**

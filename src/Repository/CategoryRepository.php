@@ -4,7 +4,7 @@
 namespace App\Repository;
 
 
-use Btinet\Baldur\Model\Model;
+use Btinet\Ringhorn\Model\Model;
 
 class CategoryRepository extends Model
 {

@@ -10,7 +10,7 @@
     ],
     "license": "MIT",
     "description": "A simple php framework inspired by SimpleMVC and Symfony",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "type": "project",
     "version": "1.0",
     "require": {
