@@ -4,8 +4,6 @@
 namespace Core;
 
 
-use MongoDB\Driver\Query;
-
 class Request
 {
 

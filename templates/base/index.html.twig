@@ -17,11 +17,10 @@
             <input type="text" name="user">
         </label>
         <input type="hidden" name="csrf_token" value="{{ session.get('csrf_token') }}">
-        <button type="submit" name="submit">Absenden</button>
+        <button type="submit">Absenden</button>
     </form>
 
     <hr>
-
     <hr>
 
     <form method="post">
@@ -29,7 +28,7 @@
             User (ohne CSRF)
             <input type="text" name="user">
         </label>
-        <button type="submit" name="submit">Absenden</button>
+        <button type="submit">Absenden</button>
     </form>
 
 {{ flash.show|raw }}

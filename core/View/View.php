@@ -2,7 +2,6 @@
 
 namespace Core\View;
 
-// Use this View as starting point, if you dont like to use Twig or any other template framework
 use Core\Logger;
 use Core\Twig\Extension\FunctionExtension;
 use Exception;

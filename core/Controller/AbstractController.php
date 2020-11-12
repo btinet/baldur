@@ -8,19 +8,12 @@ use Core\Logger;
 use Core\Password;
 use Core\Request;
 use Core\Session;
-use Core\Twig\Extension\FunctionExtension;
 use Core\View\View;
 use Exception;
-use Twig\Loader\FilesystemLoader;
-use Twig\Environment;
+
 
 abstract class AbstractController
 {
-
-    /**
-     * @var Flash
-     */
-    protected Flash $flash;
 
     /**
      * @var Logger
@@ -47,6 +40,14 @@ abstract class AbstractController
      */
     protected View $view;
 
+    /**
+     * @var Flash
+     */
+    protected Flash $flash;
+
+    /**
+     * AbstractController constructor.
+     */
     function __construct()
     {
         $this->view = new View();
@@ -77,6 +78,9 @@ abstract class AbstractController
         return $csrfToken;
     }
 
+    /**
+     * @param $e
+     */
     public function catchException($e){
         Logger::newMessage($e);
         Logger::customErrorMsg($e);
