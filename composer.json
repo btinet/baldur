@@ -2,8 +2,7 @@
     "require": {
         "symfony/dotenv": "^5.1",
         "twig/twig": "^3.0",
-      "ext-pdo": "*",
-      "ext-mcrypt": "*"
+      "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {
