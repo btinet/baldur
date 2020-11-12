@@ -8,17 +8,8 @@ use Symfony\Component\Dotenv\Dotenv;
 
 class Bootstrap {
 
-    /**
-     * @var
-     */
-    private $url;
-    /**
-     * @var null
-     */
+    private array $url;
     private $controller = null;
-    /**
-     * @var
-     */
     private $defaultController;
 
     /**
