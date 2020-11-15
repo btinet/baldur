@@ -6,6 +6,7 @@
         <title>Title</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ link('build/app.css') }}">
+            <link rel="stylesheet" href="{{ link('build/vendors~app.css') }}">
         {% endblock %}
     </head>
     <body>
@@ -15,6 +16,7 @@
     {% block javascripts %}
         <script src="{{ link('build/runtime.js') }}"></script>
         <script src="{{ link('build/app.js') }}"></script>
+        <script src="{{ link('build/vendors~app.js') }}"></script>
     {% endblock %}
     </body>
 </html>

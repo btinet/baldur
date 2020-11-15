@@ -4,12 +4,12 @@
 namespace App\Repository;
 
 
-use Btinet\Ringhorn\Model\Model;
+use Btinet\Ringhorn\Model\EntityRepository;
 
-class CategoryRepository extends Model
+class CategoryRepository extends EntityRepository
 {
 
-    public function findAll(){
+    public function findCustom(){
        return $this->db->select('SELECT * FROM category');
     }
 

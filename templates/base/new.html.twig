@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ link('base/index') }}">Hauptmenü</a>
+   <h1>
+       <a href="{{ link('base/new') }}">{{ controller_name }}</a>
+   </h1>
+
+
+    <form method="post">
+        <fieldset>
+            <legend>Neue Kategorie</legend>
+            <label>
+                Titel
+                <input type="text" name="title">
+            </label>
+            <label>
+                Beschreibung
+                <input type="text" name="meta">
+            </label>
+            <button type="submit">Speichern</button>
+        </fieldset>
+        <input type="hidden" name="csrf_token" value="{{ session.get('csrf_token') }}">
+    </form>
+
+
+
+{{ flash.show|raw }}
+
+
+{% endblock %}

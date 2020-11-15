@@ -4,5 +4,8 @@
     "node-sass": "^5.0.0",
     "sass-loader": "9.0.1",
     "webpack-notifier": "1.6.0"
+  },
+  "dependencies": {
+    "uikit": "^3.5.9"
   }
 }
