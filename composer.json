@@ -13,7 +13,7 @@
     "minimum-stability": "dev",
     "type": "project",
     "require": {
-        "btinet/ringhorn" : "*",
+        "btinet/ringhorn" : "^1.0",
         "composer/installers": "~1.0"
     },
     "autoload": {
