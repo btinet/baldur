@@ -10,10 +10,21 @@
 
     <h2>Übersicht</h2>
 
-    <a href="{{ route('base/new') }}">Eintrag hinzufügen</a>
+    <div class="uk-flex uk-flex-bottom">
+        <a href="{{ route('base/new') }}" class="uk-button uk-button-text">Eintrag hinzufügen</a>
+        <div class="uk-margin-left">
+            {{ include('base/_truncate_form.html.twig') }}
+        </div>
+    </div>
+
 
     {{ include('components/entity/category/_table.html.twig') }}
 
-    <a href="{{ route('base/new') }}">Eintrag hinzufügen</a>
+    <div class="uk-flex uk-flex-bottom">
+        <a href="{{ route('base/new') }}" class="uk-button uk-button-text">Eintrag hinzufügen</a>
+        <div class="uk-margin-left">
+            {{ include('base/_truncate_form.html.twig') }}
+        </div>
+    </div>
 
 {% endblock %}

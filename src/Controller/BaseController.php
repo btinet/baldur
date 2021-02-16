@@ -20,6 +20,7 @@ class BaseController extends AbstractController
         $categories = $categoryRepository->findAll();
 
         $this->view->render('base/index.html.twig', [
+            'session' => $this->session,
             'flash' => $this->flash,
             'categories' => $categories
         ]);
@@ -151,8 +152,25 @@ class BaseController extends AbstractController
 
         }
 
-        $this->flash->add('Formular ungültig.', 'warning');
         $this->redirect('302', 'base/index');
+    }
 
+    /**
+     * @meta  route="/truncate"
+     */
+    public function truncate(){
+
+        if ($this->request->isPostRequest() && $this->request->isFormSubmitted()) {
+
+            $category = new Category();
+            $em = $this->getEntityManager();
+
+            $em->truncate($category);
+
+            $this->flash->add('Tabelle wurde geleert!', 'success');
+
+        }
+
+        $this->redirect('302', 'base/index');
     }
 }

@@ -1,0 +1,5 @@
+<form method="post" action="{{ route('base/truncate') }}" onsubmit="return confirm('Diese Tabelle wirklich leeren?');">
+
+    <button type="submit" class="uk-text-danger uk-button uk-button-text">Tabelle leeren</button>
+    <input type="hidden" name="csrf_token" value="{{ session.get('csrf_token') }}">
+</form>

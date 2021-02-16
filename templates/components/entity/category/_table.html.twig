@@ -1,5 +1,8 @@
 <div class="uk-overflow-auto uk-margin-bottom uk-margin-top">
     <table class="uk-table uk-table-expand uk-table-hover uk-table-small uk-table-striped">
+        <caption>
+            Tabelle Category <small>({{ categories|length }} {% if (categories|length == 1) %}Eintrag{% else %}Einträge{% endif %})</small>
+        </caption>
         <thead>
         <tr>
             <th>#</th>
@@ -7,6 +10,7 @@
             <th>Beschreibung</th>
             <th>Erstellt</th>
             <th>Aktualisiert</th>
+            <th>Aktion</th>
         </tr>
         </thead>
         <tbody>
@@ -18,11 +22,12 @@
                     <td class="uk-text-nowrap">{{ category.description }}</td>
                     <td class="uk-text-nowrap">{{ category.created|date('d.m.Y H:i') }}</td>
                     <td class="uk-text-nowrap">{{ category.updated ? category.updated|date('d.m.Y H:i') : '-' }}</td>
+                    <td>{{ include('base/_delete_form.html.twig',{'class':'uk-button-text uk-text-danger uk-text-top uk-button-small'}) }}</td>
                 </tr>
             {% endfor %}
         {% else %}
             <tr>
-                <td colspan="5">Es wurde kein Eintrag gefunden.</td>
+                <td colspan="6">Es wurde kein Eintrag gefunden.</td>
             </tr>
         {% endif %}
         </tbody>
