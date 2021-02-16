@@ -1,31 +1,18 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    <title>Ringhorn Framework: neuer Eintrag</title>
+{% endblock %}
+
 {% block body %}
-    <a href="{{ link('base/index') }}">Hauptmenü</a>
-   <h1>
-       <a href="{{ link('base/new') }}">{{ controller_name }}</a>
-   </h1>
+    <h2>Eintrag anlegen</h2>
 
+    {{ flash.show|raw }}
 
-    <form method="post">
-        <fieldset>
-            <legend>Neue Kategorie</legend>
-            <label>
-                Titel
-                <input type="text" name="title">
-            </label>
-            <label>
-                Beschreibung
-                <input type="text" name="meta">
-            </label>
-            <button type="submit">Speichern</button>
-        </fieldset>
-        <input type="hidden" name="csrf_token" value="{{ session.get('csrf_token') }}">
-    </form>
+    <p>
+        <a href="{{ route('base/index') }}">Zurück zur Übersicht</a>
+    </p>
 
-
-
-{{ flash.show|raw }}
-
+    {{ include('base/_form.html.twig') }}
 
 {% endblock %}

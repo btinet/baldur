@@ -1,1 +1,12 @@
 @import "~uikit/dist/css/uikit.min.css";
+
+form label.required:after
+{
+    color: red;
+    content: " *";
+}
+
+html, body {
+    min-height: 100%;
+    background-color: #222;
+}

@@ -1,22 +1,49 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Title</title>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+
+        {% block title %}
+            <title>Ringhorn Framework</title>
+        {% endblock %}
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ link('build/app.css') }}">
-            <link rel="stylesheet" href="{{ link('build/vendors~app.css') }}">
+            {{ get_entry_link_tags('app')|raw }}
         {% endblock %}
     </head>
-    <body>
+    <body class="uk-background-secondary uk-light">
+        <div class="uk-container-expand uk-padding">
+            <h1>Ringhorn Framework Playground</h1>
+            <p>Diese Seite wurde mit Ringhorn entwickelt. Details und Weitere Infos über Ringhorn Framework für PHP findest du unter <a href="https://www.vapita.de">www.vapita.de</a></p>
+            {% block body %}{% endblock %}
+            <div class="uk-margin-large-top">
+                <a href="https://www.vapita.de/kontakt" class="uk-button uk-button-small uk-button-default">Kontakt aufnehmen</a>
+                <h5 class="uk-margin-remove-bottom">Verantwortlich für den Betrieb der Website:</h5>
+                <p class="uk-margin-remove-top">Siehe <a href="https://www.vapita.de">Impressum auf vapita.de</a>.</p>
+            </div>
 
-    {% block body %}{% endblock %}
+        </div>
 
-    {% block javascripts %}
-        <script src="{{ link('build/runtime.js') }}"></script>
-        <script src="{{ link('build/app.js') }}"></script>
-        <script src="{{ link('build/vendors~app.js') }}"></script>
-    {% endblock %}
+        {% block javascripts %}
+            {{ get_entry_script_tags('app')|raw }}
+        {% endblock %}
     </body>
 </html>

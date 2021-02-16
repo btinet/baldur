@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    <title>Fehler</title>
+{% endblock %}
+{% block body %}
+    <h2>Es ist ein Fehler aufgetreten</h2>
+    <a href="{{ route('base/index') }}">Zurück zur Startseite</a>
+    <p>
+        {{ message }}
+    </p>
+{% endblock %}

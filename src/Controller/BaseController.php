@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Category;
 use Btinet\Ringhorn\Controller\AbstractController;
 
@@ -14,59 +13,146 @@ class BaseController extends AbstractController
 
     /**
      * @meta  route="/index"
-     * @param null $param_1
-     * @param null $param_2
-     * @param string $method
      */
-    public function index(string $method, $param_1 = null, $param_2 = null){
-
-        if ($this->request->isPostRequest() && $this->request->isFormSubmitted()){
-            $em = $this->getEntityManager();
-            $category = new Category();
-
-            switch ($this->request->getQuery('action')){
-                case 'truncate':
-                    $result = $em->truncate($category);
-                    $this->flash->add("Tabelle $result wurde geleert!", 'danger');
-                    break;
-                case 'remove':
-                    $id = $this->request->getQuery('item');
-                    $em->remove($category, $id);
-                    $this->flash->add("Eintrag mit der ID $id wurde gelöscht!", 'danger');
-                    break;
-                default: die('Keine Aktion definiert!');
-            }
-            $this->redirect('302', 'base/index');
-        }
+    public function index(){
 
         $categoryRepository = $this->getRepository(Category::class);
         $categories = $categoryRepository->findAll();
 
         $this->view->render('base/index.html.twig', [
-                'controller_name' => 'Übersicht',
-                'categories' => $categories,
-                'flash' => $this->flash,
-                'session' => $this->session
-            ]
-        );
+            'flash' => $this->flash,
+            'categories' => $categories
+        ]);
     }
 
+    /**
+     * @meta  route="/new"
+     */
     public function new(){
-        if ($this->request->isPostRequest() && $this->request->isFormSubmitted()){
-            $em = $this->getEntityManager();
+
+        if ($this->request->isPostRequest() && $this->request->isFormSubmitted()) {
+
             $category = new Category();
+            $em = $this->getEntityManager();
+
             $category->setTitle($this->request->getQuery('title'));
-            $category->setMeta($this->request->getQuery('meta'));
-            $em->persist($category);
-            $this->flash->add('Eintrag wurde gespeichert!', 'success');
-            $this->redirect('302', 'base/index');
+            $category->setDescription($this->request->getQuery('description'));
+
+            $categoryRepository = $this->getRepository(Category::class);
+            $categoryTitleExists = $categoryRepository->findBy([
+                'title' => $category->getTitle()
+            ]);
+
+            if($categoryTitleExists){
+
+                $this->flash->add('Titel existiert bereits.', 'warning');
+                $this->redirect('302', 'base/new');
+
+            } else {
+
+                $em->persist($category);
+                $this->flash->add('Eintrag wurde gespeichert!', 'success');
+                $this->redirect('302', 'base/index');
+
+            }
         }
+
         $this->view->render('base/new.html.twig', [
-                'controller_name' => 'Neuer Eintrag',
-                'flash' => $this->flash,
-                'session' => $this->session
-            ]
-        );
+            'session' => $this->session,
+            'flash' => $this->flash,
+        ]);
     }
 
+    /**
+     * @meta  route="/edit"
+     * @param int $id
+     */
+    public function edit(int $id){
+
+        $categoryRepository = $this->getRepository(Category::class);
+        $categoryEntry = $categoryRepository->findBy([
+            'id' => $id
+        ]);
+
+        if(!$categoryEntry){
+
+            $this->flash->add('Eintrag existiert nicht.', 'warning');
+            $this->redirect('302', 'base/index');
+
+        } else {
+
+            if ($this->request->isPostRequest() && $this->request->isFormSubmitted()) {
+
+                $category = new Category();
+                $em = $this->getEntityManager();
+
+                $category->setTitle($this->request->getQuery('title'));
+                $category->setDescription($this->request->getQuery('description'));
+
+                $categoryTitleExists = $categoryRepository->findDuplicate([
+                    'title' => $category->getTitle()
+                ],
+                [
+                    'id' => $id
+                ]
+                );
+
+                if($categoryTitleExists){
+
+                    $this->flash->add('Titel existiert bereits.', 'warning');
+                    $this->redirect('302', 'base/edit/'.$id);
+
+                } else {
+
+                    $em->persist($category, $id);
+                    $this->flash->add('Eintrag wurde aktualisiert!', 'success');
+                    $this->redirect('302', 'base/index');
+
+                }
+
+            }
+        }
+
+        $this->view->render('base/edit.html.twig', [
+            'session' => $this->session,
+            'flash' => $this->flash,
+            'category' => array_pop($categoryEntry)
+        ]);
+    }
+
+    /**
+     * @meta  route="/delete"
+     * @param int $id
+     */
+    public function delete(int $id){
+
+        if ($this->request->isPostRequest() && $this->request->isFormSubmitted()) {
+
+            $categoryRepository = $this->getRepository(Category::class);
+            $categoryEntry = $categoryRepository->findBy([
+                'id' => $id
+            ]);
+
+            if(!$categoryEntry){
+
+                $this->flash->add('Eintrag existiert nicht.', 'warning');
+                $this->redirect('302', 'base/index');
+
+            } else {
+
+                $category = new Category();
+                $em = $this->getEntityManager();
+                $em->remove($category, $id);
+
+                $this->flash->add('Eintrag wurde gelöscht!', 'success');
+                $this->redirect('302', 'base/index');
+
+            }
+
+        }
+
+        $this->flash->add('Formular ungültig.', 'warning');
+        $this->redirect('302', 'base/index');
+
+    }
 }

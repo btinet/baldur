@@ -4,19 +4,35 @@
 namespace App\Entity;
 
 
+use DateTime;
+
 class Category
 {
 
-    /**
-     * @var string
-     */
-    public ?string $title;
+    public function __toString(): string
+    {
+        return $this->title;
+    }
 
     /**
      * @var string
      */
-    public string $meta;
+    public string $title;
 
+    /**
+     * @var string
+     */
+    public string $description;
+
+    /**
+     * @var DateTime
+     */
+    public datetime $created;
+
+    /**
+     * @var DateTime
+     */
+    public datetime $updated;
 
     /**
      * @return string
@@ -37,17 +53,33 @@ class Category
     /**
      * @return string
      */
-    public function getMeta(): string
+    public function getDescription(): string
     {
-        return $this->meta;
+        return $this->description;
     }
 
     /**
-     * @param string $meta
+     * @param string $description
      */
-    public function setMeta(string $meta): void
+    public function setDescription(string $description): void
     {
-        $this->meta = $meta;
+        $this->description = $description;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreated(): DateTime
+    {
+        return $this->created;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdated(): DateTime
+    {
+        return $this->updated;
     }
 
 }

@@ -1,46 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends('base.html.twig')%}
+
+{% block title %}
+    <title>Ringhorn Framework: Übersicht</title>
+{% endblock %}
 
 {% block body %}
-    <div class="uk-padding">
-        {{ flash.show|raw }}
-        <h1 class="">{{ controller_name }}</h1>
 
-        <div class="uk-flex uk-flex-left">
-            <a href="{{ link('base/new') }}" class="uk-button uk-button-default">Neue Kategorie</a>
-            <form method="post">
-                <input type="hidden" name="csrf_token" value="{{ session.get('csrf_token') }}">
-                <input type="hidden" name="item" value="category">
-                <button type="submit" name="action" value="truncate" class="uk-button uk-button-danger">Tabelle leeren</button>
-            </form>
-        </div>
+    {{ flash.show|raw }}
 
-        <table class="uk-table uk-table-hover uk-table-small">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Meta</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for category in categories %}
-                <tr>
-                    <td>{{ category.id }}</td>
-                    <td>{{ category.title }}</td>
-                    <td>{{ category.meta }}</td>
-                    <td>
-                        <div class="uk-flex uk-flex-left">
-                            <form method="post">
-                                <input type="hidden" name="csrf_token" value="{{ session.get('csrf_token') }}">
-                                <input type="hidden" name="item" value="{{ category.id }}">
-                                <button type="submit" name="action" value="remove" class="uk-button uk-button-small uk-button-danger">Eintrag löschen</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <h2>Übersicht</h2>
+
+    <a href="{{ route('base/new') }}">Eintrag hinzufügen</a>
+
+    {{ include('components/entity/category/_table.html.twig') }}
+
+    <a href="{{ route('base/new') }}">Eintrag hinzufügen</a>
+
 {% endblock %}

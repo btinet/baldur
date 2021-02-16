@@ -1,0 +1,30 @@
+<div class="uk-overflow-auto uk-margin-bottom uk-margin-top">
+    <table class="uk-table uk-table-expand uk-table-hover uk-table-small uk-table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Titel</th>
+            <th>Beschreibung</th>
+            <th>Erstellt</th>
+            <th>Aktualisiert</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if categories %}
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td class="uk-text-nowrap uk-text-left uk-text-bold"><a href="{{ route('base/edit',{'id':category.id}) }}">{{ category.title }}</a></td>
+                    <td class="uk-text-nowrap">{{ category.description }}</td>
+                    <td class="uk-text-nowrap">{{ category.created|date('d.m.Y H:i') }}</td>
+                    <td class="uk-text-nowrap">{{ category.updated ? category.updated|date('d.m.Y H:i') : '-' }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="5">Es wurde kein Eintrag gefunden.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
