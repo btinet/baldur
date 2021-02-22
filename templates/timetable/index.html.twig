@@ -21,11 +21,11 @@
             <div class="uk-flex uk-flex-between uk-flex-middle">
                 <div>
                     {% set disabled = dateOffset ? '' : 'uk-disabled uk-text-muted' %}
-                    <a class="uk-button uk-button-link {{ disabled }}" href="{{ route('timetable/index',{'date_offset':decreaseOffset}) }}" uk-icon="icon: chevron-left; ratio: 2"></a>
+                    <a class="uk-button uk-button-link {{ disabled }}" href="{{ decreaseOffset }}" uk-icon="icon: chevron-left; ratio: 2"></a>
                 </div>
                 <div>{{ selectedDateTime|format_datetime('long', 'none', locale='de')}}</div>
                 <div>
-                    <a class="uk-button uk-button-link" href="{{ route('timetable/index',{'date_offset':increaseOffset}) }}" uk-icon="icon: chevron-right; ratio: 2"></a>
+                    <a class="uk-button uk-button-link" href="{{ increaseOffset }}" uk-icon="icon: chevron-right; ratio: 2"></a>
                 </div>
             </div>
             <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-large-top uk-margin-bottom">

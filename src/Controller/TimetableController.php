@@ -18,14 +18,14 @@ class TimetableController extends AbstractController
         $roomRepository = $this->getRepository(Room::class);
         $rooms = $roomRepository->findAllJoined('blacklist');
 
-        $blacklistRepository = $this->getRepository(Blacklist::class);
-        $blacklist = $blacklistRepository->findAll();
-
         $currentDateTime = new \DateTime();
         $selectedDateTime = new \DateTime();
 
         $increaseOffset = $date_offset+1;
         $decreaseOffset = ($date_offset > 0)?$date_offset-1:0;
+
+        $increaseOffset = $this->generateRoute('timetable/index',['dateOffset' => $increaseOffset]);
+        $decreaseOffset = $this->generateRoute('timetable/index',['dateOffset' => $decreaseOffset]);
 
         if(isset($date_offset) && $date_offset > 0){
             $interval = 'P'.$date_offset.'D';
@@ -56,7 +56,6 @@ class TimetableController extends AbstractController
             'decreaseOffset' => $decreaseOffset,
             'dateOffset' => $date_offset,
             'rooms' => $rooms,
-            'blacklist' => $blacklist
         ]);
     }
 }
