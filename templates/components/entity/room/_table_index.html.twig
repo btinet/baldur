@@ -1,0 +1,42 @@
+<div class="uk-overflow-auto">
+    <table class="uk-table uk-table-small uk-table-divider uk-table-hover uk-table-middle">
+        <thead>
+        <tr>
+            <th>Uhrzeit</th>
+            {% for room in rooms %}
+                <th class="uk-text-center uk-text-nowrap">Raum {{ room.title }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for interval in time %}
+            <tr>
+                <th>{{ interval|date('H:i') }} Uhr</th>
+                {% for room in rooms %}
+                    <td class="uk-text-center">
+                        {% if room.isActive %}
+                            {% if interval > now %}
+                                {% set hasBlackList = false %}
+                                {% for blacklist in room.blacklist %}
+                                    {% if interval|date() >= blacklist.start|date() and interval|date() <= blacklist.end|date() %}
+                                        <span class="uk-text-danger">{{ blacklist.title }}</span>
+                                        {% set hasBlackList = true %}
+                                        {% break %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if not hasBlackList %}
+                                    <a href="#" class="uk-button uk-button-small uk-button-primary">buchen</a>
+                                {% endif %}
+                            {% else %}
+                                <span class="uk-text-muted">nicht buchbar</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="uk-text-muted">blockiert</span>
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

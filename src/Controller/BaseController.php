@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Repository\CategoryRepository;
 use Btinet\Ringhorn\Controller\AbstractController;
 
 /**
@@ -17,7 +18,7 @@ class BaseController extends AbstractController
     public function index(){
 
         $categoryRepository = $this->getRepository(Category::class);
-        $categories = $categoryRepository->findAll();
+        $categories = $categoryRepository->findAllAndParentAsArray();
 
         $this->view->render('base/index.html.twig', [
             'session' => $this->session,
@@ -27,19 +28,47 @@ class BaseController extends AbstractController
     }
 
     /**
+     * @meta  route="/view"
+     * @param int|null $id
+     */
+    public function view(int $id = null){
+
+        $categoryRepository = $this->getRepository(Category::class);
+        $category = $categoryRepository->findOneBy([
+            'id' => $id
+        ]);
+        $categories = $categoryRepository->findAllAndParentAsArray();
+        $previous = $categoryRepository->getPrevious($id);
+        $next = $categoryRepository->getNext($id);
+
+        $this->view->render('base/view.html.twig', [
+            'session' => $this->session,
+            'entry' => $category,
+            'categories' => $categories,
+            'previous' => $previous,
+            'next' => $next
+        ]);
+    }
+
+    /**
      * @meta  route="/new"
      */
     public function new(){
+
+        $categoryRepository = $this->getRepository(Category::class);
+        $categories = $categoryRepository->findAll();
 
         if ($this->request->isPostRequest() && $this->request->isFormSubmitted()) {
 
             $category = new Category();
             $em = $this->getEntityManager();
 
+
+            $category->setParent($this->request->getQuery('parent'));
             $category->setTitle($this->request->getQuery('title'));
             $category->setDescription($this->request->getQuery('description'));
 
-            $categoryRepository = $this->getRepository(Category::class);
+
             $categoryTitleExists = $categoryRepository->findBy([
                 'title' => $category->getTitle()
             ]);
@@ -61,6 +90,7 @@ class BaseController extends AbstractController
         $this->view->render('base/new.html.twig', [
             'session' => $this->session,
             'flash' => $this->flash,
+            'categories' => $categories
         ]);
     }
 
@@ -71,9 +101,13 @@ class BaseController extends AbstractController
     public function edit(int $id){
 
         $categoryRepository = $this->getRepository(Category::class);
+        $categories = $categoryRepository->findAll();
         $categoryEntry = $categoryRepository->findBy([
             'id' => $id
         ]);
+
+        $previous = $categoryRepository->getPrevious($id);
+        $next = $categoryRepository->getNext($id);
 
         if(!$categoryEntry){
 
@@ -87,6 +121,7 @@ class BaseController extends AbstractController
                 $category = new Category();
                 $em = $this->getEntityManager();
 
+                $category->setParent($this->request->getQuery('parent'));
                 $category->setTitle($this->request->getQuery('title'));
                 $category->setDescription($this->request->getQuery('description'));
 
@@ -117,7 +152,10 @@ class BaseController extends AbstractController
         $this->view->render('base/edit.html.twig', [
             'session' => $this->session,
             'flash' => $this->flash,
-            'category' => array_pop($categoryEntry)
+            'category' => array_pop($categoryEntry),
+            'categories' => $categories,
+            'previous' => $previous,
+            'next' => $next
         ]);
     }
 

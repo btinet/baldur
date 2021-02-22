@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    <title>Ringhorn Framework: Detailansicht</title>
+{% endblock %}
+
+{% block body %}
+    <section class="uk-section uk-section-small uk-section-primary">
+        <div class="uk-container">
+            <h2>{{ entry.title }} <small>(Detailansicht)</small></h2>
+        </div>
+    </section>
+    <section class="uk-section uk-section-small uk-section-muted">
+        <div class="uk-container">
+            {{ flash.show|raw }}
+
+            <p>
+                <a href="{{ route('base/index') }}">Zurück zur Übersicht</a>
+            </p>
+
+            {{ include('components/common/_navigation.html.twig') }}
+
+            <hr>
+
+            {% if entry %}
+                <dl class="uk-description-list">
+
+                    {% for key, value in entry %}
+                        {% if key == 'parent' %}
+                            <dt class="uk-text-primary">{{ key }}</dt>
+                            {% for item in categories %}
+                                {% if item.id == value %}
+                                    <dd><a href="{{ route('base/view',{'id':value}) }}">{{ item.title }}</a></dd>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <dt class="uk-text-primary">{{ key }}</dt>
+                            <dd>{{ value }}</dd>
+                        {% endif %}
+                    {% endfor %}
+
+                    <dt class="uk-text-primary margin-small-bottom">Children</dt>
+                    <dd>
+                        {{ include('components/entity/category/_table_view.html.twig') }}
+                    </dd>
+
+
+                </dl>
+            {% endif %}
+            <hr>
+            <a class="uk-button uk-button-default" href="{{ route('base/edit',{'id':entry.id}) }}">Bearbeiten</a>
+        </div>
+    </section>
+
+
+
+
+{% endblock %}

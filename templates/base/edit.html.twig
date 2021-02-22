@@ -5,16 +5,22 @@
 {% endblock %}
 
 {% block body %}
-    <h2>Eintrag bearbeiten <small>({{ category.title }})</small></h2>
+    <section class="uk-section uk-section-small uk-section-primary">
+        <div class="uk-container">
+            <h2>Eintrag bearbeiten <small>({{ category.title }})</small></h2>
+        </div>
+    </section>
+    <section class="uk-section uk-section-small uk-section-muted">
+        <div class="uk-container">
+            {{ flash.show|raw }}
+            <p>
+                <a href="{{ route('base/index') }}">Zurück zur Übersicht</a>
+            </p>
+            {{ include('components/common/_navigation.html.twig',{'action':'edit'}) }}
 
-    {{ flash.show|raw }}
+            {{ include('base/_form.html.twig', {'button':'Aktualisieren'}) }}
 
-    <p>
-        <a href="{{ route('base/index') }}">Zurück zur Übersicht</a>
-    </p>
-
-    {{ include('base/_form.html.twig', {'button':'Aktualisieren'}) }}
-
-    {{ include('base/_delete_form.html.twig') }}
-
+            {{ include('base/_delete_form.html.twig') }}
+        </div>
+    </section>
 {% endblock %}

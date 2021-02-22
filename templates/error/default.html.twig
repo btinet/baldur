@@ -3,9 +3,17 @@
     <title>Fehler</title>
 {% endblock %}
 {% block body %}
-    <h2>Es ist ein Fehler aufgetreten</h2>
-    <a href="{{ route('base/index') }}">Zurück zur Startseite</a>
-    <p>
-        {{ message }}
-    </p>
+    <section class="uk-section uk-section-primary uk-section-small">
+        <div class="uk-container">
+            <h2>Es ist ein Fehler aufgetreten</h2>
+        </div>
+    </section>
+    <section class="uk-section uk-section-default uk-section-small">
+        <div class="uk-container">
+            <p>
+                {{ message }}
+            </p>
+            <a href="{{ route('base/index') }}">Zurück zur Startseite</a>
+        </div>
+    </section>
 {% endblock %}

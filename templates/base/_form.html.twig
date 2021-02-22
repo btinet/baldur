@@ -1,3 +1,4 @@
+<hr>
 <form method="post">
     <div class="uk-margin-bottom">
         <label class="uk-form-label required">Titel</label>
@@ -9,6 +10,21 @@
             Beschreibung
             <input type="text" name="description" class="uk-input" value="{{ category.description ?:'' }}">
         </label>
+    </div>
+
+    <div class="uk-margin-bottom">
+        <label class="uk-form-label">Übergeordnete Kategorie</label>
+        <select class="uk-select" name="parent">
+            <option value="0">ohne</option>
+            {% for option in categories %}
+                {% if option.id == category.parent %}
+                    {% set selected = 'selected="selected"' %}
+                    {% else %}
+                        {% set selected = '' %}
+                {% endif %}
+                <option value="{{ option.id }}" {{ selected }}>{{ option.title }}</option>
+            {% endfor %}
+        </select>
     </div>
 
     <input type="hidden" name="csrf_token" value="{{ session.get('csrf_token') }}">

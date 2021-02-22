@@ -1,0 +1,18 @@
+{% if previous %}
+    <a href="{{ route('base',{'action': action|default('view'), 'id':previous.id}) }}" class="uk-button uk-button-link">
+        <span uk-icon="icon: chevron-left"></span>
+    </a>
+{% else %}
+    <a href="#" class="uk-disabled uk-button uk-button-link">
+        <span uk-icon="icon: chevron-left"></span>
+    </a>
+{% endif %}
+    {% if next %}
+        <a href="{{ route('base',{'action': action|default('view'), 'id':next.id}) }}" class="uk-button uk-button-link">
+            <span uk-icon="icon: chevron-right"></span>
+        </a>
+    {% else %}
+        <a href="#" class="uk-disabled uk-button uk-button-link">
+            <span uk-icon="icon: chevron-right"></span>
+        </a>
+    {% endif %}

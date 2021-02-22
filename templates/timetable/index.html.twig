@@ -1,0 +1,44 @@
+{% extends('base.html.twig')%}
+
+{% block title %}
+    <title>Timetable Test</title>
+{% endblock %}
+
+
+{% block navigation_left %}
+{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <section class="uk-section uk-section-small uk-section-primary">
+        <div class="uk-container uk-container">
+            {{ flash.show|raw }}
+            <h2>Timetable</h2>
+        </div>
+    </section>
+    <section class="uk-section uk-section-muted">
+        <div class="uk-container uk-container">
+            <div class="uk-flex uk-flex-between uk-flex-middle">
+                <div>
+                    {% set disabled = dateOffset ? '' : 'uk-disabled uk-text-muted' %}
+                    <a class="uk-button uk-button-link {{ disabled }}" href="{{ route('timetable/index',{'date_offset':decreaseOffset}) }}" uk-icon="icon: chevron-left; ratio: 2"></a>
+                </div>
+                <div>{{ selectedDateTime|format_datetime('long', 'none', locale='de')}}</div>
+                <div>
+                    <a class="uk-button uk-button-link" href="{{ route('timetable/index',{'date_offset':increaseOffset}) }}" uk-icon="icon: chevron-right; ratio: 2"></a>
+                </div>
+            </div>
+            <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-large-top uk-margin-bottom">
+                <div class="uk-text-muted">
+                    {{ selectedDateTime|format_datetime(locale='de',pattern="'Kalenderwoche 'ww")}}
+                </div>
+                <div class="uk-text-muted">
+                    {{ selectedDateTime|format_datetime(locale='de',pattern="EEEE")}}
+                </div>
+            </div>
+
+            {{ include('components/entity/room/_table_index.html.twig') }}
+
+        </div>
+    </section>
+{% endblock %}

@@ -1,13 +1,12 @@
 <div class="uk-overflow-auto uk-margin-bottom uk-margin-top">
-    <table class="tablesorter ts-index uk-table uk-table-expand uk-table-hover uk-table-small uk-table-striped">
+    <table class="tablesorter ts-view uk-table uk-table-expand uk-table-hover uk-table-small uk-table-striped">
         <caption class="uk-margin-bottom uk-padding-small">
-            Tabelle Category <small>({{ categories|length }} {% if (categories|length == 1) %}Eintrag{% else %}Einträge{% endif %})</small>
+            Tabelle {{ entry.title }} <small>(Children Entries)</small>
         </caption>
         <thead>
         <tr>
             <th>#</th>
             <th>Titel</th>
-            <th class="ts-title filter-select" data-placeholder="_ alle">Parent</th>
             <th>Beschreibung</th>
             <th>Erstellt</th>
             <th>Aktualisiert</th>
@@ -17,10 +16,10 @@
         <tbody>
         {% if categories %}
             {% for category in categories %}
+                {% if category.parent.id == entry.id %}
                 <tr>
                     <td class="uk-text-middle">{{ category.id }}</td>
                     <td class="uk-text-middle uk-text-nowrap uk-text-left uk-text-bold"><a href="{{ route('base/view',{'id':category.id}) }}">{{ category.title }}</a></td>
-                    <td class="uk-text-middle uk-text-nowrap uk-text-left uk-text-bold"><a class="{% if not category.parent %}uk-disabled uk-text-muted{% endif %}" href="{{ route('base/view',{'id':category.parent.id}) }}">{{ category.parent.title|default('_ ohne Parent') }}</a></td>
                     <td class="uk-text-middle uk-text-nowrap">{{ category.description }}</td>
                     <td class="uk-text-middle uk-text-nowrap">{{ category.created }}</td>
                     <td class="uk-text-middle uk-text-nowrap">{{ category.updated ? category.updated : '-' }}</td>
@@ -29,6 +28,7 @@
                         {{ include('base/_delete_form.html.twig',{'class':'uk-button-danger uk-button-small','button':'entf'}) }}
                     </td>
                 </tr>
+                {% endif %}
             {% endfor %}
         {% else %}
             <tr>

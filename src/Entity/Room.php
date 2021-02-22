@@ -6,18 +6,13 @@ namespace App\Entity;
 
 use DateTime;
 
-class Category
+class Room
 {
 
     public function __toString(): string
     {
         return $this->title;
     }
-
-    /**
-     * @var int
-     */
-    public int $parent;
 
     /**
      * @var string
@@ -40,20 +35,9 @@ class Category
     public datetime $updated;
 
     /**
-     * @return int
+     * @var bool
      */
-    public function getParent(): int
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @param int $parent
-     */
-    public function setParent(int $parent): void
-    {
-        $this->parent = $parent;
-    }
+    public bool $isActive;
 
     /**
      * @return string
@@ -101,6 +85,22 @@ class Category
     public function getUpdated(): DateTime
     {
         return $this->updated;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param bool $isActive
+     */
+    public function setIsActive(bool $isActive): void
+    {
+        $this->isActive = $isActive;
     }
 
 }

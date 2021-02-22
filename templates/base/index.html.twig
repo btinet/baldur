@@ -5,26 +5,39 @@
 {% endblock %}
 
 {% block body %}
-
-    {{ flash.show|raw }}
-
-    <h2>Übersicht</h2>
-
-    <div class="uk-flex uk-flex-bottom">
-        <a href="{{ route('base/new') }}" class="uk-button uk-button-text">Eintrag hinzufügen</a>
-        <div class="uk-margin-left">
-            {{ include('base/_truncate_form.html.twig') }}
+    <section class="uk-section uk-section-small uk-section-primary">
+        <div class="uk-container">
+            {{ flash.show|raw }}
+            <h2>Übersicht</h2>
         </div>
-    </div>
+    </section>
+    <section class="uk-section uk-section-muted">
+        <div class="uk-container">
+            <p>
+                Die untenstehende Tablle lässt sich dank "tablesorter" sortieren. Halte <span class="uk-text-emphasis">Umschalt</span> gedrückt, um mehrere Spalten zu sortieren. Klicke auf den Titel, um einen Eintrag zu bearbeiten.
+            </p>
+
+            <div class="uk-flex uk-flex-bottom">
+                <a href="{{ route('base/new') }}" class="uk-button uk-button-text">Eintrag hinzufügen</a>
+                <button class="uk-button uk-button-small uk-button-text table-reset uk-margin-left">Sortierung aufheben</button>
+                <div class="uk-margin-left">
+                    {{ include('base/_truncate_form.html.twig') }}
+                </div>
+            </div>
 
 
-    {{ include('components/entity/category/_table.html.twig') }}
+            {{ include('components/entity/category/_table.html.twig') }}
 
-    <div class="uk-flex uk-flex-bottom">
-        <a href="{{ route('base/new') }}" class="uk-button uk-button-text">Eintrag hinzufügen</a>
-        <div class="uk-margin-left">
-            {{ include('base/_truncate_form.html.twig') }}
+            <div class="uk-flex uk-flex-bottom">
+                <a href="{{ route('base/new') }}" class="uk-button uk-button-text">Eintrag hinzufügen</a>
+                <button class="uk-button uk-button-small uk-button-text table-reset uk-margin-left">Sortierung aufheben</button>
+                <div class="uk-margin-left">
+                    {{ include('base/_truncate_form.html.twig') }}
+                </div>
+            </div>
         </div>
-    </div>
 
+
+
+    </section>
 {% endblock %}
