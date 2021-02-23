@@ -36,6 +36,12 @@
                             <ul class="uk-navbar-nav">
                                 <li class=""><a href="{{ route('base/index') }}">Base</a></li>
                                 <li><a href="{{ route('timetable/index') }}">Timetable</a></li>
+                                {% if app.user %}
+                                    <li><a href="{{ route('user/logout') }}">Logout</a></li>
+                                    {% else %}
+                                        <li><a href="{{ route('user/login') }}">Login</a></li>
+                                        <li><a href="{{ route('user/register') }}">Register</a></li>
+                                {% endif %}
                             </ul>
                         {% endblock %}
                     </div>

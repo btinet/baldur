@@ -21,11 +21,18 @@
                                     {% if interval|date() >= blacklist.start|date() and interval|date() <= blacklist.end|date() %}
                                         <span class="uk-text-danger">{{ blacklist.title }}</span>
                                         {% set hasBlackList = true %}
-                                        {% break %}
                                     {% endif %}
                                 {% endfor %}
                                 {% if not hasBlackList %}
-                                    <a href="#" class="uk-button uk-button-small uk-button-primary">buchen</a>
+                                    <a
+                                            href="{{ route('timetable/create_appointment',{
+                                                'dateOffset' : dateOffset|default(0),
+                                                'roomId': room.id,
+                                                'bookingDate': interval|date('Y-m-d H:i')
+                                            }) }}"
+                                            class="uk-button uk-button-small uk-button-primary">
+                                        buchen
+                                    </a>
                                 {% endif %}
                             {% else %}
                                 <span class="uk-text-muted">nicht buchbar</span>

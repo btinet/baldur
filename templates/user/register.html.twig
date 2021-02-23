@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    <title>Ringhorn Framework: Registrieren</title>
+{% endblock %}
+
+{% block body %}
+    <section class="uk-section uk-section-small uk-section-primary">
+        <div class="uk-container">
+            <h2>Registrieren</h2>
+        </div>
+    </section>
+    <section class="uk-section uk-section-small uk-section-muted">
+        <div class="uk-container">
+            {{ flash.show|raw }}
+
+            {{ include('user/_register_form.html.twig') }}
+        </div>
+    </section>
+{% endblock %}

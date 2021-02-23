@@ -15,7 +15,8 @@
     "require": {
         "btinet/ringhorn" : "^1.0",
         "composer/installers": "~1.0",
-        "twig/intl-extra": "2.x-dev"
+        "twig/intl-extra": "2.x-dev",
+      "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

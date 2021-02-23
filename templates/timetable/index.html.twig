@@ -12,12 +12,12 @@
 {% block body %}
     <section class="uk-section uk-section-small uk-section-primary">
         <div class="uk-container uk-container">
-            {{ flash.show|raw }}
             <h2>Timetable</h2>
         </div>
     </section>
     <section class="uk-section uk-section-muted">
         <div class="uk-container uk-container">
+            {{ flash.show|raw }}
             <div class="uk-flex uk-flex-between uk-flex-middle">
                 <div>
                     {% set disabled = dateOffset ? '' : 'uk-disabled uk-text-muted' %}

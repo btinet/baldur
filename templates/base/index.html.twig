@@ -7,12 +7,15 @@
 {% block body %}
     <section class="uk-section uk-section-small uk-section-primary">
         <div class="uk-container">
-            {{ flash.show|raw }}
             <h2>Übersicht</h2>
+            <p>{{ app.user.firstname }} {{ app.user.lastname }}</p>
         </div>
     </section>
     <section class="uk-section uk-section-muted">
         <div class="uk-container">
+
+            {{ flash.show|raw }}
+
             <p>
                 Die untenstehende Tablle lässt sich dank "tablesorter" sortieren. Halte <span class="uk-text-emphasis">Umschalt</span> gedrückt, um mehrere Spalten zu sortieren. Klicke auf den Titel, um einen Eintrag zu bearbeiten.
             </p>

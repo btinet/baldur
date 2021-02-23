@@ -27,7 +27,7 @@
         </select>
     </div>
 
-    <input type="hidden" name="csrf_token" value="{{ session.get('csrf_token') }}">
+    <input type="hidden" name="csrf_token" value="{{ app.csrf_token }}">
 
     <button type="submit" class="uk-button uk-button-default uk-margin-bottom">{{ button|default('Speichern') }}</button>
 </form>

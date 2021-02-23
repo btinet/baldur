@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use Btinet\Ringhorn\Controller\AbstractController;
@@ -17,14 +18,20 @@ class BaseController extends AbstractController
      */
     public function index(){
 
+        $user = $this->getUser();
+        if ($user){
+            $userSession['roles'] = $user->getRoles(true);
+            $this->session->set('user',$userSession);
+            $this->security->denyAccessUntilGranted('ROLE_USER');
+        }
+
         $categoryRepository = $this->getRepository(Category::class);
         $categories = $categoryRepository->findAllAndParentAsArray();
 
         $this->view->render('base/index.html.twig', [
-            'session' => $this->session,
             'flash' => $this->flash,
-            'categories' => $categories
-        ]);
+            'categories' => $categories,
+            ]);
     }
 
     /**

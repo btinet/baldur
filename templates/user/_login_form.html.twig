@@ -1,0 +1,17 @@
+<form method="post">
+    <div class="uk-margin-bottom">
+        <label class="uk-form-label required">Titel</label>
+        <input type="text" name="title" class="uk-input" required="required" value="{{ category.title ?:'' }}">
+    </div>
+
+    <div class="uk-margin-bottom">
+        <label class="uk-form-label">
+            Beschreibung
+            <input type="text" name="description" class="uk-input" value="{{ category.description ?:'' }}">
+        </label>
+    </div>
+
+    <input type="hidden" name="csrf_token" value="{{ session.get('csrf_token') }}">
+
+    <button type="submit" class="uk-button uk-button-default uk-margin-bottom">{{ button|default('Speichern') }}</button>
+</form>

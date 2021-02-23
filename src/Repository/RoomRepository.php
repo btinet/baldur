@@ -14,7 +14,8 @@ class RoomRepository extends EntityRepository
      * @param $join
      * @return array
      */
-    public function findAllJoined($join){
+    public function findAllJoined($join):array
+    {
 
         $array = array();
         $result = $this->db->select('SELECT * FROM '.$this->table.' ');
