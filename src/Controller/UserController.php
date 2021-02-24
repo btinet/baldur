@@ -46,81 +46,29 @@ class UserController extends AbstractController
         $userData = null;
 
         if($this->request->isPostRequest() && $this->request->isFormSubmitted()){
-            $newUser = new User();
+
             $userRepository = $this->getRepository(User::class);
+            $userData = [
+                'username' => $this->request->getQuery('username'),
+                'email' => $this->request->getQuery('email'),
+                'password' => [
+                    $this->request->getQuery('password_a'),
+                    $this->request->getQuery('password_b'),
+                ],
+                'firstname' => $this->request->getQuery('firstname'),
+                'lastname' => $this->request->getQuery('lastname'),
+            ];
 
-            $userData['username'] = $this->request->getQuery('username');
-            $userData['email'] = $this->request->getQuery('email');
-            $userData['password'] = $this->request->getQuery('password');
-            $userData['password_check'] = $this->request->getQuery('password_check');
-            $userData['firstname'] = $this->request->getQuery('firstname');
-            $userData['lastname'] = $this->request->getQuery('lastname');
+            $user = $this->user->validate(new User(),$userRepository,$userData);
 
-            do{
-
-                $username = $this->request->getQuery('username');
-                if(is_string($username)){
-                    $usernameExists = $userRepository->findOneBy(['username' => $username]);
-                    if($usernameExists){
-                        $this->flash->add('Benutzername existiert bereits!','danger');
-                        break;
-                    }
-                    $newUser->setUsername($username);
-                } else {
-                    $this->flash->add('Benutzername ist nicht konform!','danger');
-                    break;
-                }
-
-                $email = $this->request->getQuery('email');
-                if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-                    $emailExists = $userRepository->findOneBy(['email' => $email]);
-                    if($emailExists){
-                        $this->flash->add('Email-Adresse existiert bereits!','danger');
-                        break;
-                    }
-                    $newUser->setEmail($email);
-                } else {
-                    $this->flash->add('Email-Adresse ist nicht konform!','danger');
-                    break;
-                }
-
-                $password = $this->request->getQuery('password');
-                $passwordCheck = $this->request->getQuery('password_check');
-                if($password == $passwordCheck){
-                    $passwordHashed = $this->passwordEncoder->hash($password);
-                    $newUser->setPassword($passwordHashed);
-                } else {
-                    $this->flash->add('Die Passwörter stimmen nicht überein!','danger');
-                    break;
-                }
-
-                $firstname = $this->request->getQuery('firstname');
-                if(is_string($firstname)){
-                    $newUser->setFirstname($firstname);
-
-                } else {
-                    $this->flash->add('Vorname ist nicht konform!','danger');
-                    break;
-                }
-
-                $lastname = $this->request->getQuery('lastname');
-                if(is_string($lastname)){
-                    $newUser->setLastname($lastname);
-                } else {
-                    $this->flash->add('Nachname ist nicht konform!','danger');
-                    break;
-                }
-
-                $newUser->setIsActive(1);
-                $newUser->setIsBlocked(0);
-
+            if(is_object($user)) {
                 $em = $this->getEntityManager();
-                $em->persist($newUser);
-
-                $this->flash->add('Benutzer wurde erfolgreich gespeichert','success');
-
+                $em->persist($user);
+                $this->flash->add(200);
                 $this->redirect('302','user/login');
-            }while(false);
+            }  else {
+                $this->flash->add($user,'danger');
+            }
         }
 
         $this->view->render('user/register.html.twig',[

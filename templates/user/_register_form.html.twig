@@ -12,11 +12,15 @@
 
     <div class="uk-width-1-2@m">
         <label class="uk-form-label required">Passwort</label>
-        <input type="password" name="password" class="uk-input" required="required" value="{{ user.password|default('') }}">
+        <input type="password" name="password_a" class="uk-input" required="required" value="{{ user.password.0|default('') }}">
+        <span class="uk-text-muted uk-text-small">
+            Mindestens einen Kleinbuchstaben, einen Großbuchstaben, eine Ziffer, ein Sonderzeichen (<span class="uk-text-italic">@#-_$%^&+=§!?</span>) sowie zwischen 8 und 20 Zeichen verwenden.
+
+        </span>
     </div>
     <div class="uk-width-1-2@m">
         <label class="uk-form-label required">Passwort wiederholen</label>
-        <input type="password" name="password_check" class="uk-input" required="required" value="{{ user.password_check|default('')}}">
+        <input type="password" name="password_b" class="uk-input" required="required" value="{{ user.password.1|default('')}}">
     </div>
 
     <div class="uk-width-1">
