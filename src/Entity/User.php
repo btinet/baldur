@@ -4,10 +4,27 @@
 namespace App\Entity;
 
 
+use App\Service\PasswordService;
 use DateTime;
+use ReflectionException;
+use ReflectionProperty;
 
 class User
 {
+
+    function __construct($userData = null){
+         if($userData){
+             foreach($userData as $key => $value){
+                 print($key.': '.$value);
+                 try {
+                     $rp = new ReflectionProperty(User::class, $key);
+                     $value = is_array($value) && !empty($value) ? array_pop($value) : $value;
+                     $this->$key=$value;
+                 } catch (ReflectionException $e) {
+                 }
+             }
+         }
+     }
 
     /**
      * @var string
@@ -39,11 +56,14 @@ class User
      */
     public string $lastname;
 
-
-
+    /**
+     * @var bool
+     */
     public bool $isActive;
 
-
+    /**
+     * @var bool
+     */
     public bool $isBlocked;
 
     /**
@@ -209,7 +229,5 @@ class User
     {
         return $this->updated;
     }
-
-
 
 }

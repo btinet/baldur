@@ -18,9 +18,10 @@ class BaseController extends AbstractController
      */
     public function index(){
 
-        $user = $this->getUser();
+        $user = false;
+
         if ($user){
-            $userSession['roles'] = $user->getRoles(true);
+            //$userSession['roles'] = $user->getRoles(true);
             $this->session->set('user',$userSession);
             $this->security->denyAccessUntilGranted('ROLE_USER');
         }
@@ -71,9 +72,9 @@ class BaseController extends AbstractController
             $em = $this->getEntityManager();
 
 
-            $category->setParent($this->request->getQuery('parent'));
-            $category->setTitle($this->request->getQuery('title'));
-            $category->setDescription($this->request->getQuery('description'));
+            $category->setParent($this->request->post('parent'));
+            $category->setTitle($this->request->post('title'));
+            $category->setDescription($this->request->post('description'));
 
 
             $categoryTitleExists = $categoryRepository->findBy([
@@ -128,9 +129,9 @@ class BaseController extends AbstractController
                 $category = new Category();
                 $em = $this->getEntityManager();
 
-                $category->setParent($this->request->getQuery('parent'));
-                $category->setTitle($this->request->getQuery('title'));
-                $category->setDescription($this->request->getQuery('description'));
+                $category->setParent($this->request->post('parent'));
+                $category->setTitle($this->request->post('title'));
+                $category->setDescription($this->request->post('description'));
 
                 $categoryTitleExists = $categoryRepository->findDuplicate([
                     'title' => $category->getTitle()

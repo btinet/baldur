@@ -68,10 +68,7 @@ class TimetableController extends AbstractController
      */
     public function create_appointment(int $dateOffset,  int $roomId, string $bookingDate){
 
-        if(!$this->getUser()){
-            $this->flash->add('Bitte einloggen, um eine Buchung durchzuführen!','warning');
-            $this->redirect('302','user/login');
-        }
+
 
         echo "$dateOffset</br>";
         echo "$roomId</br>";

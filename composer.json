@@ -13,10 +13,10 @@
     "minimum-stability": "dev",
     "type": "project",
     "require": {
-        "btinet/ringhorn" : "^1.0",
-        "composer/installers": "~1.0",
+        "btinet/ringhorn" : "dev-master",
         "twig/intl-extra": "2.x-dev",
-      "ext-json": "*"
+      "ext-json": "*",
+      "ext-mbstring": "*"
     },
     "autoload": {
         "psr-4": {
