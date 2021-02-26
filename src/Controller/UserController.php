@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Service\UserService;
-use App\Translation\ErrorTranslation;
 use \Btinet\Ringhorn\Controller\AbstractController;
 
 class UserController extends AbstractController
