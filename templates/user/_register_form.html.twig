@@ -1,41 +1,53 @@
-<form method="post"  class="uk-grid uk-form-horizontal" uk-grid>
+<form method="post" class="needs-validation" novalidate>
 
-    <div class=" uk-width-1">
-        <label class="uk-form-label required">Benutzername</label>
-        <input type="text" name="username" class="uk-input" required="required" value="{{ user.username|default('') }}">
+    <div class="row mb-3">
+        <label class="col-md-4 col-form-label required" for="email">{{ trans["email"] }}</label>
+        <div class="col-md-7">
+            <input type="email" class="form-control" id="email" name="email" required="required" value="{{ user.email|default('') }}">
+        </div>
     </div>
 
-    <div class="uk-width-1">
-        <label class="uk-form-label required">E-Mail-Adresse</label>
-        <input type="email" name="email" class="uk-input" required="required" value="{{ user.email|default('') }}">
+    <div class="row mb-3">
+        <label class="col-md-4 col-form-label required" for="username">{{ trans["username"] }}</label>
+        <div class="col-md-7">
+            <input type="text" class="form-control" id="username" name="username" required="required" value="{{ user.username|default('') }}">
+        </div>
     </div>
 
-    <div class="uk-width-1-2@m">
-        <label class="uk-form-label required">Passwort</label>
-        <input type="password" name="password_a" class="uk-input" required="required" value="{{ user.password.0|default('') }}">
-        <span class="uk-text-muted uk-text-small">
-            Mindestens einen Kleinbuchstaben, einen Großbuchstaben, eine Ziffer, ein Sonderzeichen (<span class="uk-text-italic">@#-_$%^&+=§!?</span>) sowie zwischen 8 und 20 Zeichen verwenden.
-
-        </span>
-    </div>
-    <div class="uk-width-1-2@m">
-        <label class="uk-form-label required">Passwort wiederholen</label>
-        <input type="password" name="password_b" class="uk-input" required="required" value="{{ user.password.1|default('')}}">
+    <div class="row mb-1">
+        <label class="col-md-4 col-form-label required" for="password_a">{{ trans["password"]["new"] }}</label>
+        <div class="col-md-7">
+            <input type="password" class="form-control" id="password_a" name="password_a" required="required" value=" value="{{ user.password.0|default('') }}"">
+        </div>
     </div>
 
-    <div class="uk-width-1">
-        <label class="uk-form-label required">Vorname</label>
-        <input type="text" name="firstname" class="uk-input" required="required" value="{{ user.firstname|default('') }}">
+    <div class="row mb-3">
+        <label class="col-md-4 col-form-label required" for="password_b">{{ trans["password"]["repeat"] }}</label>
+        <div class="col-md-7">
+            <input type="password" class="form-control" id="password_b" name="password_b" required="required" value=" value="{{ user.password.1|default('') }}"">
+        </div>
     </div>
 
-    <div class="uk-width-1">
-        <label class="uk-form-label required">Nachname</label>
-        <input type="text" name="lastname" class="uk-input" required="required" value="{{ user.lastname|default('') }}">
+    <div class="row mb-3">
+        <label class="col-md-4 col-form-label required" for="firstname">{{ trans["firstname"] }}</label>
+        <div class="col-md-7">
+            <input type="text" class="form-control" id="firstname" name="firstname" required="required" value="{{ user.firstname|default('') }}">
+        </div>
     </div>
 
-    <div class="uk-width-1">
-        <input type="hidden" name="csrf_token" value="{{ app.csrf_token }}">
-        <button type="submit" class="uk-button uk-button-primary">{{ button|default('Registrieren') }}</button>
+    <div class="row mb-3">
+        <label class="col-md-4 col-form-label required" for="lastname">{{ trans["lastname"] }}</label>
+        <div class="col-md-7">
+            <input type="text" class="form-control" id="lastname" name="lastname" required="required" value="{{ user.lastname|default('') }}">
+        </div>
+    </div>
+
+    <input type="hidden" name="csrf_token" value="{{ app.csrf_token }}">
+
+    <div class="row mb-3">
+        <div class="col-md-7 offset-md-4">
+            <button type="submit" class="btn btn-purple w-100 mb-3">{{ trans["button"]["register"] }}</button>
+        </div>
     </div>
 
 </form>

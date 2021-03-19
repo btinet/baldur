@@ -1,0 +1,54 @@
+<form method="post" class="needs-validation" novalidate>
+    {% if column == 'password' %}
+        <div class="row mb-3">
+            <label class="col-md-4 col-form-label required">{{ trans["password"]["current"] }}</label>
+            <div class="col-md-7">
+                <input type="password" name="password_old" class="form-control" required="required" value="">
+            </div>
+        </div>
+
+        <div class="row mb-1">
+            <label class="col-md-4 col-form-label required" for="password_a">{{ trans["password"]["new"] }}</label>
+            <div class="col-md-7">
+                <input type="password" class="form-control" id="password_a" name="password_a" required="required" value=" value="{{ user.password.0|default('') }}"">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-md-4 col-form-label required" for="password_b">{{ trans["password"]["repeat"] }}</label>
+            <div class="col-md-7">
+                <input type="password" class="form-control" id="password_b" name="password_b" required="required" value=" value="{{ user.password.1|default('') }}"">
+            </div>
+        </div>
+
+        {% elseif column == 'language' %}
+            <div class="row mb-3">
+                <label class="col-md-4 col-form-label required">{{ trans[column] }}</label>
+                <div class="col-md-7">
+                    <select name="{{ column }}" class="form-select" required="required">
+                        <option value="">{{ trans["form"]["select"]["language"] }}</option>
+                        {% for availableLocale in locales %}
+                            {% set selected = '' %}
+                            {% if attribute(user, column) == availableLocale %}
+                                {% set selected = 'selected="selected"' %}
+                            {% endif %}
+                            <option {{ selected }} value="{{ availableLocale }}">{{ trans[availableLocale] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            {% else %}
+                <div class="row mb-3">
+                    <label class="col-md-4 col-form-label required">{{ trans[column] }}</label>
+                    <div class="col-md-7">
+                        <input type="text" name="{{ column }}" class="form-control" required="required" value="{{ attribute(user, column) }}">
+                    </div>
+            </div>
+    {% endif %}
+    <div class="row mb-3">
+        <input type="hidden" name="csrf_token" value="{{ app.csrf_token }}">
+        <div class="offset-md-4 col-md-7">
+            <button type="submit" class="btn btn-purple w-100">{{ trans["button"]["update"] }}</button>
+        </div>
+    </div>
+</form>

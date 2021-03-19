@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    <title>Ringhorn Framework: New Booking</title>
+{% endblock %}
+
+{% block body %}
+    <section class="uk-section uk-section-small uk-section-primary">
+        <div class="uk-container">
+            <h2>{{ trans["booking"] }}</h2>
+        </div>
+    </section>
+    <section class="uk-section uk-section-small uk-section-muted">
+        <div class="uk-container">
+            {{ flash.show|raw }}
+
+            <p class="uk-text-lead">{{ trans['new booking'] }}</p>
+
+            <a class="uk-button uk-button-link uk-text-muted uk-flex-middle uk-grid uk-grid-collapse" href="{{ route('timetable/index',{'dateOffset':dateOffset},'bookingTable') }}">
+                <span class="uk-icon"  uk-icon="icon: chevron-left; ratio: 2"></span>
+                <span>{{ trans["button"]["back"] }}</span>
+            </a>
+
+            <div class="uk-alert uk-alert-warning">
+                <p>
+                    Bitte beachte, dass Buchungen nur maximal 48 Stunden vorher storniert werden können. Kurzfristige Buchungsanfragen können nicht mehr storniert werden.
+                </p>
+            </div>
+
+            {{ include('timetable/_form.html.twig') }}
+
+        </div>
+    </section>
+{% endblock %}

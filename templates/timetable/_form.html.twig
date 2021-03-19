@@ -1,0 +1,23 @@
+<form method="post" action="{{ route('timetable/create') }}" id="bookingForm">
+    <div class="mb-3 d-flex justify-content-between align-items-center h6 text-dark">
+        <span>{{ trans["room"] }} <span class="rh-room-id"></span><span class="ms-2 rh-room-type text-capitalize badge"></span></span>
+
+        <span class="rh-booking-date"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="title">
+            {{ trans["title"] }}
+        </label>
+        <input type="text" id="title" name="title" class="rh-title form-control" maxlength="50" value="">
+    </div>
+    <div class="mb-3">
+        <div class="form-check form-switch">
+            <input class="form-check-input" name="hasRent" type="checkbox" id="hasRent">
+            <label class="form-check-label" for="hasRent">{{ trans["rentAddon"] }}?</label>
+        </div>
+    </div>
+    <input type="hidden" id="bookingDate" name="bookingDate" class="rh-booking-date form-control" readonly="readonly" required="required" value="{{ roomId }}">
+    <input type="hidden" id="roomId" name="roomId" class="rh-room-id  form-control" readonly="readonly" required="required" value="{{ roomId }}">
+    <input type="hidden" id="dateOffset" name="dateOffset" class="rh-date-offset  form-control" readonly="readonly" required="required" value="{{ bookingDate }}">
+    <input type="hidden" name="csrf_token" value="{{ app.csrf_token }}">
+</form>

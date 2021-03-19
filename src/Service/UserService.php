@@ -4,6 +4,15 @@ namespace App\Service;
 
 class UserService
 {
+    public static function tryLogin($repository, array $data): int
+    {
+        if(0 != $usernameLastError = self::isString('username',$data,21031)) return $usernameLastError;
+        if(null === $usernameLastError = $repository->findOneBy(['username' => $data['username']])) return 210111;
+        if(0 != $userLastError = self::isMatch($repository,$data)) return $userLastError;
+
+        return 0;
+    }
+
     public static function validate($repository, array $data): int
     {
         if(0 != $usernameLastError = self::isString('username',$data,21031)) return $usernameLastError;
@@ -17,17 +26,29 @@ class UserService
         return 0;
     }
 
-    private static function isUnique($repository, $needle, $array, $errorCode = 2101): int
+    public static function isUnique($repository, $needle, $array, $errorCode = 2101): int
     {
         return ($repository->findOneBy([$needle => $array[$needle]])) ? $errorCode : 0;
     }
 
-    private static function isEmail($needle, $array, $errorCode = 2102): int
+    public static function isMatch($repository,$array, $errorCode = 210112): int
+    {
+        $user = ($repository->findOneBy([
+            'username' => $array['username'],
+        ]));
+        if($user){
+            $password = is_array($array['password']) ? array_pop($array['password']): $array['password'];
+            return !PasswordService::verify($password,$user['password']) ? $errorCode : 0;
+        }
+        return $errorCode;
+    }
+
+    public static function isEmail($needle, $array, $errorCode = 2102): int
     {
         return (!filter_var($array[$needle], FILTER_VALIDATE_EMAIL)) ? $errorCode : 0;
     }
 
-    private static function isString($needle, $array, $errorCode = 2103): int
+    public static function isString($needle, $array, $errorCode = 2103): int
     {
         return (!is_string($array[$needle])) ? $errorCode : 0;
     }

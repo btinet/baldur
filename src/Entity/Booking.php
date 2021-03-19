@@ -12,7 +12,7 @@ class Booking
     /**
      * @var string|null
      */
-    public string|null $title;
+    public string $title;
 
     /**
      * @var int
@@ -30,9 +30,19 @@ class Booking
     public Datetime $appointment;
 
     /**
+     * @var bool
+     */
+    public bool $canceled;
+
+    /**
      * @var DateTime
      */
     public DateTime $created;
+
+    /**
+     * @var int
+     */
+    public int $createdBy;
 
     /**
      * @var DateTime
@@ -40,17 +50,17 @@ class Booking
     public DateTime $updated;
 
     /**
-     * @return string|null
+     * @var int
      */
+    public int $updatedBy;
+
+
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    /**
-     * @param string|null $title
-     */
-    public function setTitle(?string $title): void
+    public function setTitle(string $title):void
     {
         $this->title = $title;
     }
@@ -104,6 +114,22 @@ class Booking
     }
 
     /**
+     * @return bool
+     */
+    public function getCanceled(): bool
+    {
+        return $this->canceled;
+    }
+
+    /**
+     * @param bool $canceled
+     */
+    public function setCanceled(bool $canceled): void
+    {
+        $this->canceled = $canceled;
+    }
+
+    /**
      * @return DateTime
      */
     public function getCreated(): DateTime
@@ -117,6 +143,38 @@ class Booking
     public function getUpdated(): DateTime
     {
         return $this->updated;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCreatedBy(): int
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param int $createdBy
+     */
+    public function setCreatedBy(int $createdBy): void
+    {
+        $this->createdBy = $createdBy;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUpdatedBy(): int
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * @param int $updatedBy
+     */
+    public function setUpdatedBy(int $updatedBy): void
+    {
+        $this->updatedBy = $updatedBy;
     }
 
 }

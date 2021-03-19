@@ -1,0 +1,18 @@
+<div class="modal fade" id="bookingConfirm" tabindex="-1" aria-labelledby="bookingConfirm" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookingConfirmLabel">{{ trans["booking"] }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ include('timetable/_form.html.twig') }}
+            </div>
+            <span class="rh-locale">{{ app.locale }}</span>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">{{ trans["button"]["close"] }}</button>
+                <button type="submit" class="btn btn-sm btn-purple" form="bookingForm">{{ trans["button"]["save"] }}</button>
+            </div>
+        </div>
+    </div>
+</div>

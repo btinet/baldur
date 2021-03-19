@@ -5,16 +5,25 @@
 {% endblock %}
 
 {% block body %}
-    <section class="uk-section uk-section-small uk-section-primary">
-        <div class="uk-container">
-            <h2>Login</h2>
+    <section id="header" class="py-5 bg-white">
+        <div class=" container-md">
+            <h1 class="display-4">{{ trans["login"] }}</h1>
         </div>
     </section>
-    <section class="uk-section uk-section-small uk-section-muted">
-        <div class="uk-container">
-            {{ flash.show|raw }}
-
-            <p>Bitte melde dich an, um fortzufahren!</p>
+    <section id="body" class="py-3 container-md">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Bereits registriert?</h5>
+                <p>Logge dich ein, um Termine zu buchen und dein Konto einzusehen.</p>
+                {{ include('user/_login_form.html.twig') }}
+            </div>
+            <div class="col-md-6">
+                <h5>Neu hier?</h5>
+                <p>Registriere dich und genieße alle Vorteile unserer Website.</p>
+                <a href="{{ route('user/register') }}" class="">
+                    {{ trans["button"]["to register"] }}
+                </a>
+            </div>
         </div>
     </section>
 {% endblock %}

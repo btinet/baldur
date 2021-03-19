@@ -1,4 +1,11 @@
 200 : Wunderbar! Alles hat geklappt!
+201 : Du wurdest erfolgreich angemeldet!
+203: Die Buchung wurde erfolgreich durchgeführt!
+403: Da stimmt etwas nicht!
+1201: Dieser Zeitraum ist nicht verfügbar!
+1202: Dieser Zeitraum liegt in der Vergangenheit!
+1204: Die Buchung wurde erfolgreich storniert!
+1205: Die Buchung existiert nicht oder nicht mehr!
 1601 : Das Passwort enthält keine gültigen Zeichen!
 1602 : Die Passwörter stimmen nicht überein!
 1603 : Das Passwort muss aus mindestens acht Zeichen bestehen!
@@ -8,7 +15,10 @@
 16053 : Das Passwort enthält keine Kleinbuchstaben!
 16054 : Das Passwort enthält keine sonstigen Zeichen!
 16055 : Das Passwort enthält keine Ziffern!
+1801: Dieser Raum ist nicht oder nicht mehr verfügbar!
 21011 : Benutzername ist bereits vergeben!
+210111 : Benutzer exisitiert nicht!
+210112: Benutzer und Passwort stimmen nicht überein!
 21012 : Es exisitert bereits ein Benuter mit dieser E-Mail-Adresse!
 21013 : 
 21014 : 
@@ -33,4 +43,92 @@
 21033 : 
 21034 : Der Vorname enthält keine gültigen Zeichen!
 21035 : Der Nachname enthält keine gültigen Zeichen!
-21036 : 
+21036 :
+
+title: Titel
+username: Benutzername
+email: E-Mail-Adresse
+firstname: Vorname
+lastname: Nachname
+password:
+  default: Passwort
+  current: Aktuelles Passwort
+  new: Neues Passwort
+  repeat: Passwort wiederholen
+login: Anmelden
+register: Registrieren
+calendarWeek: Kalenderwoche
+logout: Erfolgreich abgemeldet
+logoutMessage: Du wurdest erfolgreich abgemeldet!
+language: Sprache
+
+booking canceled: storniert
+
+button:
+  register: Registrieren
+  login: Anmelden
+  update: Aktualisieren
+  back: Zurück
+  save: Speichern
+  view: Zeigen
+  delete: Löschen
+  cancel: Stornieren
+  close: Schließen
+  to register: Jetzt registrieren!
+  to login: Jetzt einloggen!
+
+cancel confirm: Buchung wirklich stornieren?
+
+booking: Raumbuchung
+booking plan: Raumbelegung
+new booking: Überprüfe die Buchung
+checkedIn: eingecheckt
+
+calendar:
+  month: Monatsübersicht
+
+form:
+  select:
+    language: Sprache wählen
+
+rentAddon: Zubehör mieten
+
+room: Raum
+rooms: Räume
+time: Uhrzeit
+appointment: Buchungstermin
+bookingAvailable: buchen
+bookingNotAvailable: abgelaufen
+bookingBlocked: blockiert
+bookingOcupied: belegt
+bookingExpired: frei
+booked: gebucht
+user account: Benutzerkonto
+user settings: Benutzereinstellungen
+username change: Benutzername ändern
+password change: Passwort ändern
+email update: E-Mail-Adresse aktualisieren
+prefered language set: Bevorzugte Sprache einstellen
+prefered language change: Bevorzugte Sprache ändern
+user booking: Buchungen
+update:
+  username: Ändere deinen Benutzernamen
+  email:  Aktualisiere deine E-Mail-Adresse
+  password: Ändere dein Passwort
+  language: Lege deine bevorzugte Sprache fest
+
+ROLE_USER: Benutzer
+ROLE_ADMIN: Administrator
+de: deutsch
+en: englisch
+
+todays bookings: Heutige Buchungen
+
+weekDays:
+  1: Mo
+  2: Di
+  3: Mi
+  4: Do
+  5: Fr
+  6: Sa
+  7: So

@@ -1,11 +1,7 @@
 @import "~uikit/dist/css/uikit.min.css";
 @import "~tablesorter/dist/css/theme.default.min.css";
 
-form label.required:after
-{
-    color: red;
-    content: " *";
-}
+
 
 html, body {
     min-height: 100%;
@@ -22,3 +18,9 @@ html, body {
 .tablesorter tbody td{
     padding: 8px 16px!important;
 }
+
+body{
+    font-family: "Arial Narrow", sans-serif;
+}
+
+.sprung {visibility: hidden; height: 0 !important; position: absolute; margin: 0;}

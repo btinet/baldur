@@ -1,7 +1,7 @@
 {% extends('base.html.twig')%}
 
 {% block title %}
-    <title>Timetable Test</title>
+    <title>{{ trans["booking plan"] }}</title>
 {% endblock %}
 
 
@@ -10,35 +10,207 @@
 {% endblock %}
 
 {% block body %}
-    <section class="uk-section uk-section-small uk-section-primary">
-        <div class="uk-container uk-container">
-            <h2>Timetable</h2>
+
+    <section id="header" class="py-5 bg-white">
+        <div class=" container-md">
+            <h1 class="display-4">{{ trans["booking plan"] }}</h1>
+            <p class="">Du kannst deine gewünschten Zeiten bequem reservieren. Bezahle entweder vorab per PayPal oder direkt vor Ort in bar.</p>
         </div>
     </section>
-    <section class="uk-section uk-section-muted">
-        <div class="uk-container uk-container">
-            {{ flash.show|raw }}
-            <div class="uk-flex uk-flex-between uk-flex-middle">
-                <div>
-                    {% set disabled = dateOffset ? '' : 'uk-disabled uk-text-muted' %}
-                    <a class="uk-button uk-button-link {{ disabled }}" href="{{ decreaseOffset }}" uk-icon="icon: chevron-left; ratio: 2"></a>
-                </div>
-                <div>{{ selectedDateTime|format_datetime('long', 'none', locale='de')}}</div>
-                <div>
-                    <a class="uk-button uk-button-link" href="{{ increaseOffset }}" uk-icon="icon: chevron-right; ratio: 2"></a>
+    <section id="body" class="py-3 container-md">
+
+        <div class="invisible" id="bookingTable"></div>
+        <h5 class="">Raumübersicht</h5>
+        <div class="card shadow mb-5">
+            <div class="card-header bg-white p-1">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        {% set disabled = dateOffset ? '' : 'disabled text-muted' %}
+                        <a class="btn btn-light btn-link {{ disabled }}" href="{{ decreaseMonthOffset }}"><i class="bi bi-chevron-double-left" style="font-size: 1.2rem"></i></a>
+                        <a class="btn btn-light btn-link {{ disabled }}" href="{{ decreaseOffset }}"><i class="bi bi-chevron-left" style="font-size: 1.2rem"></i></a>
+                    </div>
+                    <div class="flex-grow-1 mx-1">
+                        <a class="btn btn-light d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <span class="text-primary">{{ selectedDateTime|format_datetime('medium', 'none',locale=locale)}}</span>
+                            <i class="bi bi-calendar-date ms-2" style="font-size: 1.2rem"></i>
+                        </a>
+                    </div>
+                    <div>
+                        <a class="btn btn-light btn-link" href="{{ increaseOffset }}"><i class="bi bi-chevron-right" style="font-size: 1.2rem"></i></a>
+                        <a class="btn btn-light btn-link" href="{{ increaseMonthOffset }}"><i class="bi bi-chevron-double-right" style="font-size: 1.2rem"></i></a>
+                    </div>
                 </div>
             </div>
-            <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-large-top uk-margin-bottom">
-                <div class="uk-text-muted">
-                    {{ selectedDateTime|format_datetime(locale='de',pattern="'Kalenderwoche 'ww")}}
-                </div>
-                <div class="uk-text-muted">
-                    {{ selectedDateTime|format_datetime(locale='de',pattern="EEEE")}}
+            <div class=" card-body">
+                <div class="flex flex-between flex-middle">
+                    <div class="text-muted">
+                        {{ selectedDateTime|format_datetime(locale=locale,pattern="EEEE")}}
+                    </div>
+                    <div class="text-muted">
+                        {{ trans["calendarWeek"] }} {{ selectedDateTime|format_datetime(locale=locale,pattern="ww")}}
+                    </div>
                 </div>
             </div>
 
             {{ include('components/entity/room/_table_index.html.twig') }}
 
         </div>
+
+        <div class="row">
+            <div class="col-md-4">
+
+                <h5 class="">{{ trans["todays bookings"] }}</h5>
+                <div class="card shadow small">
+                    {{ include('components/lists/_user_booking_list.html.twig') }}
+                </div>
+            </div>
+        </div>
+
+
+        {{ include('components/modal/_booking_modal.html.twig') }}
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <div>
+                                {% set disabled = dateOffset ? '' : 'disabled text-muted' %}
+                                <a class="btn btn-light btn-link {{ disabled }}" href="{{ decreaseMonthOffset }}"><i class="bi bi-chevron-double-left" style="font-size: 1.2rem"></i></a>
+                            </div>
+                            <div><h5 class="mb-0">{{ selectedDateTime|format_datetime(locale=locale,pattern="MMMM")}}</h5></div>
+                            <div>
+                                <a class="btn btn-light btn-link" href="{{ increaseMonthOffset }}"><i class="bi bi-chevron-double-right" style="font-size: 1.2rem"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-body">
+                        <code>
+                            <div class="container">
+                                <div class="row gap-0 align-items-start">
+                                    {% for weekday in 1..7 %}
+                                        <div class="col text-center">
+                                            {{ trans["weekDays"][weekday] }}
+                                        </div>
+                                    {% endfor %}
+                                    <div class="clearfix"></div>
+                                    {% set i = 0 %}
+                                    {% set days = daysCurrentMonth + firstDayCurrentMonth|date('w')-1  %}
+                                    {% for day in 1..days %}
+                                        {% if loop.index0 % 7 == 0 and loop.index0 != 0 %}
+                                            <div class="clearfix"></div>
+                                        {% endif %}
+                                        {% if loop.index >= firstDayCurrentMonth|date('w') %}
+                                            {% set selected = '' %}
+                                            {% set i = i + 1 %}
+                                            {% if i == selectedDateTime|date('d') %}{% set selected = 'text-light bg-purple' %}{% endif %}
+                                            <div class="col text-center my-1 mx-0 p-0 bg-light">
+                                                {% set dateTarget = -selectedDateTime|date('d')+i+dateOffset|default(0) %}
+                                                {% if now|date('m') == currentMonth and now|date('Y') == currentYear and now|date('d') <= i %}
+                                                    {% if now|date('Y-m') == selectedDateTime|date('Y-m') and now|date('d') == i %}{% set textRed = 'text-danger' %}{% else %}{% set textRed = '' %}{% endif %}
+
+                                                    <a href="{{ route('timetable/index',{'dateOffset':dateTarget},'bookingTable') }}" class="text-decoration-none p-2 d-block bg-gradient  {{ selected }} {{ textRed }}">
+                                                        {{ i }}
+                                                    </a>
+                                                {% elseif now|date('Y-m') < selectedDateTime|date('Y-m') %}
+                                                    <a href="{{ route('timetable/index',{'dateOffset':dateTarget},'bookingTable') }}" class="text-decoration-none p-2 d-block bg-gradient {{ selected }}">{{ i }}</a>
+                                                {% else %}
+                                                    <span class="col text-muted p-2 d-block">{{ i }}</span>
+                                                {% endif %}
+                                            </div>
+                                        {% else %}
+                                            <div class="col text-center my-1 mx-0 p-0">
+                                                <span class="col text-muted p-2 "></span>
+                                            </div>
+                                        {% endif %}
+                                        {% if loop.last %}
+                                            {% set y = loop.index %}
+                                            {% for x in 1..7 %}
+                                                {% if y is divisible by(7) %}
+                                                    {% break %}
+                                                {% endif %}
+                                                <div class="col my-1 mx-0 p-0 "></div>
+                                                {% set y = y + 1 %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </code>
+
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">{{ trans["button"]["close"] }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+    <div class="my-5"></div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var exampleModal = document.getElementById('bookingConfirm')
+        exampleModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            var bookingDate = button.getAttribute('data-booking-date')
+            var dateOffset = button.getAttribute('data-date-offset')
+            var roomId = button.getAttribute('data-room-id')
+            var roomType = button.getAttribute('data-room-type')
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            var modalBodyInputTitle = exampleModal.querySelector('.modal-body input.rh-title')
+            var modalBodyInputRoomId = exampleModal.querySelector('.modal-body input.rh-room-id')
+            var modalBodyInputDateOffset = exampleModal.querySelector('.modal-body input.rh-date-offset')
+            var modalBodyInputBookingDate = exampleModal.querySelector('.modal-body input.rh-booking-date')
+
+            var modalBodyRoomId = exampleModal.querySelector('span.rh-room-id')
+            var modalBodyRoomType = exampleModal.querySelector('span.rh-room-type')
+            var modalBodyBookingDate = exampleModal.querySelector('span.rh-booking-date')
+
+
+            modalBodyInputTitle.value = ''
+            modalBodyInputRoomId.value = roomId
+            modalBodyInputDateOffset.value = dateOffset
+            modalBodyInputBookingDate.value = bookingDate
+
+            modalBodyRoomId.innerHTML = roomId
+            modalBodyRoomType.innerHTML = roomType
+            modalBodyRoomType.setAttribute('class','rh-room-type text-capitalize ms-2 badge bg-' + roomType)
+            modalBodyBookingDate.innerHTML = button.getAttribute('data-booking-date-formatted');
+        })
+
+    </script>
+    <script>
+
+
+        function display_ct() {
+            let d = new Date()
+            let n = Math.round(d.getMinutes()/60*100);
+            let seconds = new Date().getSeconds();
+            let minute = new Date().getMinutes();
+
+            if ( minute === 0 && seconds === 0) {
+                document.location.reload();
+            }
+
+            let elements = document.getElementsByClassName('ct')
+            for (let i = 0, ii = elements.length; i < ii; i++) {
+                elements[i].style.width = n + "%";
+            }
+        }
+        display_ct()
+
+        let interval = setInterval(function () { display_ct(); }, 1000);
+    </script>
 {% endblock %}

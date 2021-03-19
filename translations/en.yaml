@@ -1,4 +1,11 @@
 200 : Great! All done!
+201 : Great! You've been successfully logged in!
+203: The appointment has been successfuly booked!
+403: Something went wrong!
+1201: This Date has been blocked allready!
+1202: You can't book an appointment in the past!
+1204: Appointment has been successfuly canceled!
+1205: Appointment does not exist!
 1601 : Password has no allowed characters!
 1602 : Passwords are not equal!
 1603 : Password needs at least eight characters!
@@ -8,7 +15,10 @@
 16053 : Password contains no lower letters!
 16054 : Password contains no other characters!
 16055 : Password contains no numbers!
+1801: This Room does not exist!
 21011 : User already exists!
+210111 : User does not exist!
+210112: User and password do not match!
 21012 : Email address already exists!
 21013 : 
 21014 : 
@@ -33,4 +43,92 @@
 21033 : 
 21034 : Firstname contains no allowed characters!
 21035 : Lastname contains no allowed characters!
-21036 : 
+21036 :
+
+title: Title
+username: Username
+email: Email Address
+firstname: Firstname
+lastname: Lastname
+password:
+  default: Password
+  current: Current Password
+  new: New Password
+  repeat: Repeat Password
+login: Login
+register: Register
+calendarWeek: Calendar week
+logout: logout successful
+logoutMessage: you've been successfully logged out!
+language: Language
+
+booking canceled: canceled
+
+button:
+  register: Register
+  login: Login
+  update: Update
+  back: back
+  save: Save
+  view: View
+  delete: Delete
+  cancel: Cancel
+  close: close
+  to register: Regsiter now!
+  to login: Login now!
+  
+ cancel confirm: Do you really want to cancel this booking?
+
+booking: Room Booking
+booking plan: Room Occupancy
+new booking: Check your booking data
+checkedIn: checked in
+
+calendar:
+  month: Monthly Overview
+
+form:
+  select:
+    language: select language
+
+rentAddon: Rent Gear
+
+room: Room
+rooms: Rooms
+time: time
+appointment: Appointment
+bookingAvailable: book now
+bookingNotAvailable: expired
+bookingBlocked: blocked
+bookingOcupied: occupied
+bookingExpired: available
+booked: booked
+user account: User Account
+user settings: User Settings
+username change: change username
+password change: change password
+email update: update email address
+prefered language set: set prefered language
+prefered language change: update prefered language
+user booking: Bookings
+update:
+  username: Update your username
+  email:  Update your email address
+  password: Update your password
+  language: Set your prefered language
+
+ROLE_USER: User
+ROLE_ADMIN: Administrator
+de: german
+en: english
+
+todays bookings: Today's Bookings
+
+weekDays:
+  1: Mo
+  2: Tu
+  3: We
+  4: Th
+  5: Fr
+  6: Sa
+  7: Su

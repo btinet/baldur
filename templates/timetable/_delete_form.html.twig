@@ -1,0 +1,4 @@
+<form method="post" class="" action="{{ route('timetable/delete', {'id': booking.id}) }}" onsubmit="return confirm('{{ trans["cancel confirm"] }}');">
+    <input type="hidden" name="csrf_token" value="{{ app.csrf_token }}">
+    <button  class="btn btn-light text-danger"><i class="bi-trash" style="height: 1.2rem"></i></button>
+</form>

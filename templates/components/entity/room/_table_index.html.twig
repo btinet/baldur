@@ -1,49 +1,116 @@
-<div class="uk-overflow-auto">
-    <table class="uk-table uk-table-small uk-table-divider uk-table-hover uk-table-middle">
+<div class="table-responsive">
+    <table class="table tables-sm table-hover">
         <thead>
         <tr>
-            <th>Uhrzeit</th>
+            <th class="align-middle text-center">{{ trans["time"] }}</th>
             {% for room in rooms %}
-                <th class="uk-text-center uk-text-nowrap">Raum {{ room.title }}</th>
+                <th class="text-center text-nowrap pb-0">
+                    <a class="btn btn-sm btn-light d-block" href="{{ route('room/index',{'id':room.id}) }}">
+                        {{ trans["room"] }} {{ room.title }}
+                    </a>
+                </th>
             {% endfor %}
         </tr>
         </thead>
-        <tbody>
+        <tbody class="small">
+
         {% for interval in time %}
-            <tr>
-                <th>{{ interval|date('H:i') }} Uhr</th>
+            {% set activeRow = '' %}
+            {% if interval|date('Y-m-d H') == now|date('Y-m-d H') %}
+                {% set activeRow = 'bg-light bg-gradient' %}
+            {% endif %}
+            <tr class="{{ activeRow }}">
+                <td class="text-center">{{ interval|date('H:i') }}</td>
                 {% for room in rooms %}
-                    <td class="uk-text-center">
+                    <td class="text-center">
                         {% if room.isActive %}
                             {% if interval > now %}
                                 {% set hasBlackList = false %}
                                 {% for blacklist in room.blacklist %}
                                     {% if interval|date() >= blacklist.start|date() and interval|date() <= blacklist.end|date() %}
-                                        <span class="uk-text-danger">{{ blacklist.title }}</span>
+                                        <span class="text-danger">{{ blacklist.title }}</span>
                                         {% set hasBlackList = true %}
                                     {% endif %}
                                 {% endfor %}
                                 {% if not hasBlackList %}
-                                    <a
-                                            href="{{ route('timetable/create_appointment',{
-                                                'dateOffset' : dateOffset|default(0),
-                                                'roomId': room.id,
-                                                'bookingDate': interval|date('Y-m-d H:i')
-                                            }) }}"
-                                            class="uk-button uk-button-small uk-button-primary">
-                                        buchen
-                                    </a>
+                                    {% set hasBooking = false %}
+                                    {% set isUserLoggedIn = false %}
+                                    {% for booking in bookings %}
+                                        {% if booking.appointment == interval|date('Y-m-d H:i:s') and booking.roomId == room.id %}
+                                            {% set hasBooking = true %}
+                                            {% if booking.userId == app.session.get('user') %}
+                                                {% set isUserLoggedIn = true %}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if hasBooking %}
+                                        {% if not isUserLoggedIn %}
+                                            <span class="bg-light bg-gradient d-block text-muted">{{ trans["bookingOcupied"] }}</span>
+                                        {% endif %}
+                                        {% elseif interval > date('+1hours') %}
+                                            <a
+                                                    href="#"
+                                                    class="btn btn-sm btn-link p-0 d-block text-nowrap"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#bookingConfirm"
+                                                    data-date-offset="{{ dateOffset|default(0) }}"
+                                                    data-room-id="{{ room.id }}"
+                                                    data-room-title="{{ room.title }}"
+                                                    data-room-type="{{ room.type }}"
+                                                    data-booking-date="{{ interval|date('Y-m-d H:i:s') }}"
+                                                    data-booking-date-formatted="{{ interval|format_datetime('medium', 'short',locale=locale) }}"
+                                                    data-locale="{{ locale }}"
+                                            >
+                                                {{ trans["bookingAvailable"] }}
+                                            </a>
+											{% else %}
+											<a href="#" class="text-nowrap">
+												{{ trans["bookingExpired"] }}
+											</a>
+                                    {% endif %}
+                                    {% if isUserLoggedIn %}
+                                        <span class="text-white bg-success bg-gradient d-block">{{ trans["booked"] }}</span>
+                                    {% endif %}
                                 {% endif %}
-                            {% else %}
-                                <span class="uk-text-muted">nicht buchbar</span>
+
+                            {% else%}
+                                {% set checkedIn = false %}
+                                {% for booking in bookings %}
+                                    {% if booking.appointment == interval|date('Y-m-d H:i:s') and booking.roomId == room.id %}
+                                        {% set checkedIn = true %}
+                                        {% if booking.userId == app.session.get('user') %}
+                                            {% set isUserLoggedIn = true %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if activeRow and not checkedIn  %}
+                                    <a href="#" class="text-nowrap">
+										{{ trans["bookingExpired"] }}
+									</a>
+                                    {% elseif activeRow and checkedIn %}
+                                        <span class="text-dark bg-warning bg-gradient d-block">{{ trans["checkedIn"] }}</span>
+                                    {% else %}
+                                        <span class="text-muted">{{ trans["bookingNotAvailable"] }}</span>
+                                {% endif %}
                             {% endif %}
                         {% else %}
-                            <span class="uk-text-muted">blockiert</span>
+
+                            <span class="text-muted">{{ trans["bookingBlocked"] }}</span>
                         {% endif %}
                     </td>
                 {% endfor %}
             </tr>
         {% endfor %}
+
         </tbody>
+        <tfoot>
+        <tr class="bg-light bg-gradient">
+            <th class=""></th>
+            {% for room in rooms %}
+                <th class="text-center bg-{{ room.type }} bg-gradient small text-light text-nowrap">{{ room.description }}</th>
+            {% endfor %}
+        </tr>
+        </tfoot>
     </table>
 </div>
+

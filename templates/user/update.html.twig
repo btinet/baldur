@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    <title>Ringhorn Framework: Login</title>
+{% endblock %}
+
+{% block body %}
+    <section id="header" class="py-5 bg-white">
+        <div class=" container-md">
+            <h1 class="display-4">{{ trans["user account"] }}</h1>
+        </div>
+    </section>
+    <section id="body" class="py-3 container-md">
+        <h3 class="mb-3 text-black-50">{{ app.user.firstname }} {{ app.user.lastname }}</h3>
+        <h5 class="mb-3">{{ trans['update'][column] }}</h5>
+
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <a class="btn btn-sm btn-link" href="{{ route('user/index') }}">
+                    <div class=" d-flex align-items-center">
+                        <i class="bi bi-chevron-left text-black-50 me-2" style="font-size: 1.2rem"></i>
+                        <span>{{ trans["button"]["back"] }}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                {{ include('user/_update_form.html.twig') }}
+            </div>
+        </div>
+
+
+
+
+    </section>
+{% endblock %}

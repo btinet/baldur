@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    <title>{{ trans["booking"] }}</title>
+{% endblock %}
+
+{% block body %}
+	<section id="header" class="py-5 bg-white">
+		<div class=" container-md">
+			<h1 class="display-4">{{ trans["user account"] }}</h1>
+		</div>
+	</section>
+	<section id="body" class="py-3 container-md">
+		<h3 class="mb-3 text-black-50">{{ app.user.firstname }} {{ app.user.lastname }}</h3>
+		<h5>{{ trans["booking"] }}</h5>
+		<p>Hier findest du alle deine Buchungen. Buchungen, die nicht jüngr als 48 Stunden sind, können ggf. storniert werden.</p>
+	</section>
+	<section id="tabs" class="py-3">
+
+		<div class=" container-md">
+			<h5>{{ trans["user booking"] }}</h5>
+			<div class="card shadow">
+				<div class="card-header pb-0">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs border-bottom-0" id="myTab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#today" type="button" role="tab" aria-controls="today" aria-selected="false">Heute</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">Kommend</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#canceled" type="button" role="tab" aria-controls="canceled" aria-selected="false">Storniert</button>
+						</li>
+					</ul>
+				</div>
+				<!-- Tab panes -->
+				<div class="tab-content mt-3">
+					<div class="tab-pane" id="today" role="tabpanel" aria-labelledby="today-tab">
+						{{ include('components/lists/_user_booking_list.html.twig') }}
+					</div>
+					<div class="tab-pane active" id="all" role="tabpanel" aria-labelledby="all-tab">
+						{{ include('components/lists/_user_booking_all_list.html.twig') }}
+					</div>
+					<div class="tab-pane" id="canceled" role="tabpanel" aria-labelledby="canceled-tab">
+						{{ include('components/lists/_user_booking_cancel_list.html.twig') }}
+					</div>
+				</div>
+				<div class="card-body">
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+
+
+		function display_ct() {
+			let d = new Date()
+			let n = Math.round(d.getMinutes()/60*100);
+			let seconds = new Date().getSeconds();
+			let minute = new Date().getMinutes();
+
+			if ( minute === 0 && seconds === 0) {
+				document.location.reload();
+			}
+
+
+			let elements = document.getElementsByClassName('ct')
+			for (let i = 0, ii = elements.length; i < ii; i++) {
+				elements[i].style.width = n + "%";
+			}
+		}
+		display_ct()
+
+		let interval = setInterval(function () { display_ct(); }, 1000);
+	</script>
+{% endblock %}

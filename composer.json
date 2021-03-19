@@ -16,7 +16,9 @@
         "btinet/ringhorn" : "dev-master",
         "twig/intl-extra": "2.x-dev",
       "ext-json": "*",
-      "ext-mbstring": "*"
+      "ext-mbstring": "*",
+      "ext-calendar": "*",
+        "phpmailer/phpmailer": "dev-master"
     },
     "autoload": {
         "psr-4": {

@@ -11,19 +11,24 @@ use ReflectionProperty;
 
 class User
 {
-
     function __construct($userData = null){
          if($userData){
              foreach($userData as $key => $value){
-                 print($key.': '.$value);
                  try {
                      $rp = new ReflectionProperty(User::class, $key);
-                     $value = is_array($value) && !empty($value) ? array_pop($value) : $value;
-                     $this->$key=$value;
+                     $key = "set".ucfirst($key);
+                     $value = is_array($value) && !empty($value) ?  array_shift($value) : $value;
+                     $this->$key($value);
                  } catch (ReflectionException $e) {
+                     die("Something went wrong!");
                  }
              }
          }
+     }
+
+     public function __toString(): string
+     {
+         return $this->username;
      }
 
     /**
@@ -65,6 +70,11 @@ class User
      * @var bool
      */
     public bool $isBlocked;
+
+    /**
+     * @var string
+     */
+    public string $language;
 
     /**
      * @var DateTime
@@ -121,24 +131,21 @@ class User
      */
     public function setPassword(string $password): void
     {
-        $this->password = $password;
+        $this->password = PasswordService::hash($password);
     }
 
     /**
      * @param bool $noJsonEncode
-     * @return array
      */
-    public function getRoles(bool $noJsonEncode = false): array
+    public function getRoles(bool $noJsonEncode = false)
     {
         $roles = $this->roles;
         $roles[] = 'ROLE_USER';
 
         if(!$noJsonEncode){
-          $array = json_encode(array_unique($roles));
+          return $array = json_encode(array_unique($roles));
         }
-        $array = array_unique($roles);
-
-        return $array;
+        return array_unique($roles);
     }
 
     /**
@@ -215,19 +222,19 @@ class User
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getCreated(): DateTime
+    public function getLanguage(): string
     {
-        return $this->created;
+        return $this->language;
     }
 
     /**
-     * @return DateTime
+     * @param string $language
      */
-    public function getUpdated(): DateTime
+    public function setLanguage(string $language): void
     {
-        return $this->updated;
+        $this->language = $language;
     }
 
 }

@@ -7,15 +7,8 @@ use Exception;
 
 class PasswordService
 {
-    public static function hash($passwordPlain)
+    public static function hash($passwordPlain):string
     {
-        if (is_array($passwordPlain) && !empty($plain_password)){
-            $passwordHashed = null;
-            foreach ($plain_password as $item){
-                $passwordHashed[] = password_hash($item, PASSWORD_DEFAULT);
-            }
-            return $passwordHashed;
-        }
         return password_hash($passwordPlain, PASSWORD_DEFAULT);
     }
 
@@ -54,8 +47,8 @@ class PasswordService
 
     private static function hasMinLength($password): bool
     {
-        $password = is_array($password) && !empty($password) ? array_pop($password) : $password;
-        return (strlen($password) > 7);
+        $password = is_array($password) && !empty($password) ? array_shift($password) : $password;
+        return strlen($password) >= 8;
     }
 
     private static function isAllowed($password): bool
@@ -64,9 +57,9 @@ class PasswordService
         return true;
     }
 
-    private static function isComplex($password)
+    private static function isComplex($password): int
     {
-            $password = is_array($password) && !empty($password) ? array_pop($password) : $password;
+            $password = is_array($password) && !empty($password) ? array_shift($password) : $password;
             $spaceCount = mb_strlen($password) - mb_strlen(mb_ereg_replace("\p{Zs}","",$password));
             if ($spaceCount != 0){
                 $p = ($spaceCount/mb_strlen($password)*100);

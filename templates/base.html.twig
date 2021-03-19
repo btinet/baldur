@@ -29,34 +29,90 @@
             {{ get_entry_link_tags('app')|raw }}
         {% endblock %}
     </head>
-    <body>
-        <nav class="uk-navbar-container" uk-navbar>
-                    <div class="uk-navbar-left">
-                        {% block navigation_left %}
-                            <ul class="uk-navbar-nav">
-                                <li class=""><a href="{{ route('base/index') }}">Base</a></li>
-                                <li><a href="{{ route('timetable/index') }}">Timetable</a></li>
-                                {% if app.user %}
-                                    <li><a href="{{ route('user/logout') }}">Logout</a></li>
-                                    {% else %}
-                                        <li><a href="{{ route('user/login') }}">Login</a></li>
-                                        <li><a href="{{ route('user/register') }}">Register</a></li>
-                                {% endif %}
-                            </ul>
-                        {% endblock %}
-                    </div>
-        </nav>
-        {% block body %}{% endblock %}
-        <section class="uk-section uk-section-small uk-section-secondary">
-            <div class="uk-container">
-                <p>Das Impressum findest du auf <a href="https://www.vapita.de/impressum">vapita.de</a></p>
+    <body class="bg-light">
+
+    <nav class="navbar navbar-expand navbar-light bg-white border-bottom">
+        <div class="container-fluid my-1">
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="navbar-brand" href="{{ route('timetable/index') }}">
+                                <span class="h4 text-cyan text-uppercase">Ring<span class="text-black-50">horn</span></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        {% if app.user %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ app.user.username }}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('user/index') }}">Persönliche Daten</a></li>
+                                    <li><a class="dropdown-item"  href="{{ route('timetable/bookings') }}">Buchungen</a></li>
+                                    <li class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item"  href="{{ route('user/logout') }}">Logout</a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{{ route('user/login') }}">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('user/register') }}">Register</a></li>
+                        {% endif %}
+                    </ul>
             </div>
-        </section>
+        </div>
+    </nav>
 
+        <nav class="navbar navbar-expand-md bg-light navbar-light border-bottom shadow-sm">
+            <div class="container-md">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    {% block navigation_left %}
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link" href="{{ route('base/index') }}">Base</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('room/index') }}">{{ trans["rooms"] }}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('timetable/index') }}">{{ trans["booking plan"] }}</a></li>
 
-
+                        </ul>
+                    {% endblock %}
+                </div>
+            </div>
+        </nav>
+        {{ flash.show|raw }}
+        <div class="container-fluid px-0">
+            {% block body %}{% endblock %}
+        </div>
         {% block javascripts %}
             {{ get_entry_script_tags('app')|raw }}
+            <script>
+                (function () {
+                    'use strict'
+
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.querySelectorAll('.needs-validation')
+
+                    // Loop over them and prevent submission
+                    Array.prototype.slice.call(forms)
+                        .forEach(function (form) {
+                            form.addEventListener('submit', function (event) {
+                                if (!form.checkValidity()) {
+                                    event.preventDefault()
+                                    event.stopPropagation()
+                                }
+
+                                form.classList.add('was-validated')
+                            }, false)
+                        })
+                })()
+
+                function toastClose(){
+                    var myToastEl = document.getElementById('myToast');
+                    myToastEl.classList.replace('show','hide');
+                }
+            </script>
         {% endblock %}
     </body>
 </html>

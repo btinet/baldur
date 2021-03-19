@@ -1,4 +1,12 @@
-<div class="uk-alert uk-alert-{{ type }}" uk-alert>
-    <a class="uk-alert-close" uk-close></a>
-    <p>{{ trans[message] }}</p>
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+    <div class="toast show" id="myToast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-light bg-{{ type }}">
+            <strong class="me-auto">Meldung</strong>
+            <button type="button" onclick="toastClose()"  class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            {{ trans[message] }}
+        </div>
+    </div>
 </div>
+

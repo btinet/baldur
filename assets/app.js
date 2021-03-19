@@ -7,18 +7,25 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
+import './styles/app.scss';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';
 
-import UIkit from 'uikit';
-import Icons from 'uikit/dist/js/uikit-icons';
+// import UIkit from 'uikit';
+// import Icons from 'uikit/dist/js/uikit-icons';
+import { Tooltip, Toast, Popover, Dropdown } from 'bootstrap';
 import 'tablesorter/dist/js/jquery.tablesorter.min';
 import 'tablesorter/dist/js/jquery.tablesorter.widgets.min';
 
 // loads the Icon plugin
-UIkit.use(Icons);
+// UIkit.use(Icons);
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+
+
+
+
 
 
 

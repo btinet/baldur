@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    <title>Rooms</title>
+{% endblock %}
+
+{% block body %}
+    <section class="uk-section uk-section-small uk-section-primary">
+        <div class="uk-container">
+            <h2>{{ trans["rooms"] }}</h2>
+        </div>
+    </section>
+    <section class="uk-section uk-section-small uk-section-default">
+        <div class="uk-container">
+            <p>Sieh dir die verfügbaren Räume genauer an und entscheide, welcher zu deinen Ansprüchen passt.</p>
+        </div>
+    </section>
+    <section class="uk-section uk-section-small uk-section-muted">
+        <div class="uk-container">
+            {{ flash.show|raw }}
+            <div class="uk-grid" uk-grid>
+                {% for room in rooms %}
+                    <div class="uk-width uk-width-1-3@m">
+                        <div class="uk-card uk-card-default">
+                            <div class="uk-card-header">
+                                <h5>{{ room.title }}</h5>
+                            </div>
+                            <div class="uk-card-body">
+                                {{ room.description }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+{% endblock %}

@@ -1,17 +1,25 @@
-<form method="post">
-    <div class="uk-margin-bottom">
-        <label class="uk-form-label required">Titel</label>
-        <input type="text" name="title" class="uk-input" required="required" value="{{ category.title ?:'' }}">
+<form method="post" class="needs-validation" novalidate>
+
+    <div class="row mb-3">
+        <label class="col-md-4 col-form-label required" for="username">{{ trans["username"] }}</label>
+        <div class="col-md-7">
+            <input type="text" class="form-control" id="username" name="username" required="required" value="{{ user.username|default('') }}" placeholder="{{ trans["username"] }}">
+        </div>
     </div>
 
-    <div class="uk-margin-bottom">
-        <label class="uk-form-label">
-            Beschreibung
-            <input type="text" name="description" class="uk-input" value="{{ category.description ?:'' }}">
-        </label>
+    <div class="row mb-3">
+        <label class="col-md-4 col-form-label required" for="password">{{ trans["password"]["default"] }}</label>
+        <div class="col-md-7">
+            <input type="password" class="form-control" id="password" name="password" required="required" value="{{ user.password|default('') }}" placeholder="{{ trans["password"]["default"] }}">
+        </div>
     </div>
 
-    <input type="hidden" name="csrf_token" value="{{ session.get('csrf_token') }}">
+    <input type="hidden" name="csrf_token" value="{{ app.csrf_token }}">
 
-    <button type="submit" class="uk-button uk-button-default uk-margin-bottom">{{ button|default('Speichern') }}</button>
+    <div class="row mb-3">
+        <div class="col-md-7 offset-md-4">
+            <button type="submit" class="btn btn-purple w-100 mb-3">{{ trans["button"]["login"] }}</button>
+        </div>
+    </div>
+
 </form>

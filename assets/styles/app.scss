@@ -1,1 +1,137 @@
-@import "~uikit/dist/css/uikit.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100;200;300;400;500;700&display=swap');
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+$headings-font-family: 'Fira Sans', sans-serif;
+$font-family-sans-serif: 'Fira Sans', sans-serif;
+$font-weight-base: 300;
+$enable-rounded: false;
+$enable-gradients: true;
+$enable-shadows: false;
+
+$blue:    #048dff;
+$cyan:    #41c2af;
+$green:   #5de04d;
+$yellow:  #ffb704;
+$orange:  #ff7804;
+$red:     #cc3755;
+$pink:    #ff04b6;
+$purple:  #5e5e5e;
+
+
+
+// Configuration
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+$grays:(
+"100": #f8f8fa,
+"200": #e5e6eb,
+"300": #d2d4dc,
+"400": #c0c2ce,
+);
+
+
+
+$light:         map-get($grays,"100");
+
+
+
+$theme-colors: (
+        "primary":    $primary,
+        "secondary":  $secondary,
+        "success":    $success,
+        "info":       $info,
+        "warning":    $warning,
+        "danger":     $danger,
+        "light":      $light,
+        "dark":       $dark,
+        "cyan":       $primary,
+        "purple":     $purple,
+        "green":      $green,
+        "yellow-light": lighten($warning,45%),
+        "gray-200": map-get($grays,"200"),
+        "gray-300": map-get($grays,"300"),
+        "basic":  $blue,
+        "solo":   $cyan,
+        "drums":  $red,
+        "pro":    $purple
+);
+
+$headings-color: $danger;
+$headings-font-weight: 400;
+
+$table-hover-bg: lighten(map-get($theme-colors,"warning"),45%);
+$input-focus-box-shadow: 0;
+$btn-focus-box-shadow: 0;
+$input-focus-bg: lighten(map-get($theme-colors,"warning"),45%);
+
+form label.required:after
+{
+  color: map-get($theme-colors,"danger");
+  content: " *";
+}
+
+input:hover,a:hover,.btn-light:hover{
+  border: 1px dotted map-get($grays,"500")!important;
+}
+
+input:focus,a:focus,.btn-light:focus{
+  border: 1px dotted $black!important;
+}
+
+a,button{
+  border: 1px solid transparentize(#FFFFFF,1) !important;
+}
+
+input{
+  border-width: 1px!important;
+}
+
+.navbar-blur{
+  background: transparentize($white,.3);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+@import "~bootstrap/scss/utilities";
+
+// Layout & components
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/containers";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/card";
+@import "~bootstrap/scss/accordion";
+@import "~bootstrap/scss/breadcrumb";
+@import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/progress";
+@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/toasts";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/popover";
+@import "~bootstrap/scss/carousel";
+@import "~bootstrap/scss/spinners";
+
+// Helpers
+@import "~bootstrap/scss/helpers";
+
+// Utilities
+@import "~bootstrap/scss/utilities/api";
+// scss-docs-end import-stack
+
+

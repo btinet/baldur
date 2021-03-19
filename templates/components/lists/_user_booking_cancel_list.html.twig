@@ -1,0 +1,38 @@
+{% if userBookings %}
+    <div class="list-group list-group-flush">
+        {% for booking in userBookings|sort((a, b) => a.appointment <=> b.appointment)  %}
+            {% if booking.appointment|date('Y-m-d') > "now"|date('Y-m-d') and  booking.canceled %}
+                {% for room in rooms %}
+                    {% set dateOffset = date(booking.appointment|date('Y/m/d')).diff(date('now'|date('Y/m/d'))) %}
+                    {% if booking.roomId == room.id %}
+                        <div class="list-group-item p-1">
+                            <a
+                                    href="{{ route('timetable/index',{
+                                        'dateOffset': dateOffset.days
+                                    }) }}"
+                                    class="list-group-item-action d-flex justify-content-between  align-items-center text-decoration-none px-3 text-danger py-2"
+                            >
+                                        <span>
+                                            <div class="">{{ trans['room'] }} {{ room.title }}</div>
+                                            <small class="badge bg-light text-dark border shadow-sm" style="font-weight: 300">{{ booking.title }}</small>
+                                            {% set hasBlackList = false %}
+                                            {% for blacklist in room.blacklist %}
+                                                {% if booking.appointment|date() >= blacklist.start|date() and booking.appointment|date() <= blacklist.end|date() %}
+                                                    <span class="text-danger">{{ blacklist.title }} <small class="text-italic">{{ trans['booking canceled'] }}</small></span>
+                                                    {% set hasBlackList = true %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </span>
+                                <span>{{ booking.appointment|format_datetime('medium', 'medium',locale=locale) }}</span>
+
+                            </a>
+
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% else %}
+    <span>Keine Buchungen gefunden</span>
+{% endif %}
